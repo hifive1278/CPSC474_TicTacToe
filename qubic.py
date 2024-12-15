@@ -24,7 +24,7 @@ class Qubic:
             if all(self.board[x][y][z] == self.current_player for x, y, z in line):
                 return self.current_player
         return 0
-
+    
     def generate_lines(self):
         # Generate all possible winning lines
         lines = []
@@ -49,3 +49,36 @@ class Qubic:
     def is_full(self):
         # Check if the board is full
         return all(self.board[x][y][z] != 0 for x in range(4) for y in range(4) for z in range(4))
+    
+    # static evaluator heuristic
+    def static_evaluator_eval1(self, board, player):
+        opponent = 3 - player
+        player_score = 0
+        opponent_score = 0
+        
+        # Define the value of n-in-a-rows
+        values = {1: 1, 2: 10, 3: 100, 4: 1000}
+        opponent_multiplier = 1.1  # Opponent's rows are slightly more valuable
+
+        # Generate all possible lines
+        lines = self.generate_lines()
+
+        # Count n-in-a-rows for each player
+        player_counts = {1: 0, 2: 0, 3: 0, 4: 0}
+        opponent_counts = {1: 0, 2: 0, 3: 0, 4: 0}
+
+        for line in lines:
+            player_pieces = sum(1 for x, y, z in line if board[x][y][z] == player)
+            opponent_pieces = sum(1 for x, y, z in line if board[x][y][z] == opponent)
+
+            if player_pieces > 0 and opponent_pieces == 0:
+                player_counts[player_pieces] += 1
+            elif opponent_pieces > 0 and player_pieces == 0:
+                opponent_counts[opponent_pieces] += 1
+
+        # Calculate scores
+        for n in range(1, 5):
+            player_score += player_counts[n] * values[n]
+            opponent_score += opponent_counts[n] * values[n] * opponent_multiplier
+
+        return player_score - opponent_score

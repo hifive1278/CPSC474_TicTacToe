@@ -1,7 +1,7 @@
 # simulate.py
 
 from qubic import Qubic
-from agents import RandomAgent, GreedyAgent
+from agents import RandomAgent, SimpleGreedyAgent, AdvancedGreedyAgent
 
 def simulate_game(agent1, agent2, num_games=100):
     agent1_wins = 0
@@ -33,12 +33,25 @@ def simulate_game(agent1, agent2, num_games=100):
 
 if __name__ == "__main__":
     random_agent = RandomAgent()
-    greedy_agent = RandomAgent()
+    simple_greedy_agent = SimpleGreedyAgent()
+    advanced_greedy_agent = AdvancedGreedyAgent()
 
-    num_games = 1000
-    agent1_wins, agent2_wins, draws = simulate_game(random_agent, greedy_agent, num_games)
+    num_games = 100
 
-    print(f"Results after {num_games} games:")
+    print("Random Agent vs Simple Greedy Agent:")
+    agent1_wins, agent2_wins, draws = simulate_game(random_agent, simple_greedy_agent, num_games)
     print(f"Random Agent wins: {agent1_wins} ({agent1_wins/num_games*100:.2f}%)")
-    print(f"Greedy Agent wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
+    print(f"Simple Greedy Agent wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
+    print(f"Draws: {draws} ({draws/num_games*100:.2f}%)")
+
+    print("\nRandom Agent vs Advanced Greedy Agent:")
+    agent1_wins, agent2_wins, draws = simulate_game(random_agent, advanced_greedy_agent, num_games)
+    print(f"Random Agent wins: {agent1_wins} ({agent1_wins/num_games*100:.2f}%)")
+    print(f"Advanced Greedy Agent wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
+    print(f"Draws: {draws} ({draws/num_games*100:.2f}%)")
+
+    print("\nSimple Greedy Agent vs Advanced Greedy Agent:")
+    agent1_wins, agent2_wins, draws = simulate_game(simple_greedy_agent, advanced_greedy_agent, num_games)
+    print(f"Simple Greedy Agent wins: {agent1_wins} ({agent1_wins/num_games*100:.2f}%)")
+    print(f"Advanced Greedy Agent wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
     print(f"Draws: {draws} ({draws/num_games*100:.2f}%)")
