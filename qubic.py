@@ -14,7 +14,7 @@ class Qubic:
         return False
 
     def switch_player(self):
-        # Switch the current player
+        # Switch the current player, since 3-2=1 and 3-1=2
         self.current_player = 3 - self.current_player
 
     def check_winner(self):

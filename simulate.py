@@ -1,7 +1,7 @@
 # simulate.py
 
 from qubic import Qubic
-from agents import RandomAgent, SimpleGreedyAgent, AdvancedGreedyAgent
+from baseline_agents import RandomAgent, SimpleGreedyAgent, AdvancedGreedyAgent
 
 def simulate_game(agent1, agent2, num_games=100):
     agent1_wins = 0
