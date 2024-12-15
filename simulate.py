@@ -1,5 +1,6 @@
 # simulate.py
 
+import sys
 from qubic import Qubic
 from baseline_agents import RandomAgent, SimpleGreedyAgent, AdvancedGreedyAgent
 
@@ -31,14 +32,14 @@ def simulate_game(agent1, agent2, num_games=100):
 
     return agent1_wins, agent2_wins, draws
 
-if __name__ == "__main__":
+def run_simulations(num_games):
     random_agent = RandomAgent()
     simple_greedy_agent = SimpleGreedyAgent()
     advanced_greedy_agent = AdvancedGreedyAgent()
 
-    num_games = 100
+    print(f"Running simulations with {num_games} games each...")
 
-    print("Random Agent vs Simple Greedy Agent:")
+    print("\nRandom Agent vs Simple Greedy Agent:")
     agent1_wins, agent2_wins, draws = simulate_game(random_agent, simple_greedy_agent, num_games)
     print(f"Random Agent wins: {agent1_wins} ({agent1_wins/num_games*100:.2f}%)")
     print(f"Simple Greedy Agent wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
@@ -55,3 +56,17 @@ if __name__ == "__main__":
     print(f"Simple Greedy Agent wins: {agent1_wins} ({agent1_wins/num_games*100:.2f}%)")
     print(f"Advanced Greedy Agent wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
     print(f"Draws: {draws} ({draws/num_games*100:.2f}%)")
+
+if __name__ == "__main__":
+    # Default number of games
+    num_games = 100
+
+    # Check if a command-line argument is provided
+    if len(sys.argv) > 1:
+        try:
+            num_games = int(sys.argv[1])
+        except ValueError:
+            print("Invalid argument. Please provide a valid integer for the number of games.")
+            sys.exit(1)
+
+    run_simulations(num_games)
