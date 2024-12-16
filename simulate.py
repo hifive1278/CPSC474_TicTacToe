@@ -3,6 +3,7 @@
 import sys
 from qubic import Qubic
 from baseline_agents import RandomAgent, SimpleGreedyAgent, AdvancedGreedyAgent
+from alphabeta_agent import AlphaBetaAgent
 
 def simulate_game(agent1, agent2, num_games=100):
     agent1_wins = 0
@@ -36,6 +37,7 @@ def run_simulations(num_games):
     random_agent = RandomAgent()
     simple_greedy_agent = SimpleGreedyAgent()
     advanced_greedy_agent = AdvancedGreedyAgent()
+    alphabeta_agent = AlphaBetaAgent()
 
     print(f"Running simulations with {num_games} games each...")
 
@@ -57,9 +59,27 @@ def run_simulations(num_games):
     print(f"Advanced Greedy Agent wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
     print(f"Draws: {draws} ({draws/num_games*100:.2f}%)")
 
+    # print("\nAlpha Beta Agent vs Random Agent:")
+    # agent1_wins, agent2_wins, draws = simulate_game(alphabeta_agent, random_agent, num_games)
+    # print(f"Alpha Beta Agent wins: {agent1_wins} ({agent1_wins/num_games*100:.2f}%)")
+    # print(f"Random Agent wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
+    # print(f"Draws: {draws} ({draws/num_games*100:.2f}%)")
+
+    print("\nAlpha Beta Agent vs Simple Greedy Agent:")
+    agent1_wins, agent2_wins, draws = simulate_game(alphabeta_agent, simple_greedy_agent, num_games)
+    print(f"Alpha Beta Agent wins: {agent1_wins} ({agent1_wins/num_games*100:.2f}%)")
+    print(f"Simple Greedy Agent wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
+    print(f"Draws: {draws} ({draws/num_games*100:.2f}%)")
+
+    # print("\nAlpha Beta Agent vs Advanced Greedy Agent:")
+    # agent1_wins, agent2_wins, draws = simulate_game(alphabeta_agent, advanced_greedy_agent, num_games)
+    # print(f"Alpha Beta Agent wins: {agent1_wins} ({agent1_wins/num_games*100:.2f}%)")
+    # print(f"Advanced Greedy Agent wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
+    # print(f"Draws: {draws} ({draws/num_games*100:.2f}%)")
+
 if __name__ == "__main__":
     # Default number of games
-    num_games = 100
+    num_games = 1
 
     # Check if a command-line argument is provided
     if len(sys.argv) > 1:

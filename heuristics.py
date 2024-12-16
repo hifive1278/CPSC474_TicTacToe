@@ -52,4 +52,9 @@ def static_evaluator_eval1(board, player):
         player_score += player_counts[n] * values[n]
         opponent_score += opponent_counts[n] * values[n] * opponent_multiplier
 
+    if player_counts[4] != 0:
+        return float('inf')
+    if opponent_counts[4] != 0:
+        return float('-inf')
+
     return player_score - opponent_score
