@@ -3,6 +3,7 @@ class Qubic:
         # Initialize a 4x4x4 board
         self.board = [[[0 for _ in range(4)] for _ in range(4)] for _ in range(4)]
         self.current_player = 1
+        self.dimension = 4
     
     def dimensions(self):
         return len(self.board[0])
@@ -10,11 +11,11 @@ class Qubic:
     def display_board(self):
         print("Curr Player: " + str(self.current_player))
         
-        for y in range(4):
+        for y in range(self.dimension):
             row_strings = []
-            for z in range(4):
+            for z in range(self.dimension):
                 row = []
-                for x in range(4):
+                for x in range(self.dimension):
                     value = self.board[z][y][x]
                     if value == 0:
                         row.append('.')
@@ -39,13 +40,13 @@ class Qubic:
         self.current_player = 3 - self.current_player
 
     def is_valid_move(self, x, y, z):
-        return 0 <= x < 3 and 0 <= y < 3 and 0 <= z < 3 and self.board[x][y][z] == 0
+        return 0 <= x < self.dimension and 0 <= y < self.dimension and 0 <= z < self.dimension and self.board[x][y][z] == 0
     
     def get_legal_moves(self):
         moves = []
-        for x in range(4):
-            for y in range(4):
-                for z in range(4):
+        for x in range(self.dimension):
+            for y in range(self.dimension):
+                for z in range(self.dimension):
                     if self.board[x][y][z] == 0:
                         moves.append((x, y, z))
         return moves
@@ -65,33 +66,33 @@ class Qubic:
         # Generate all possible winning lines
         lines = []
         # Add lines for rows, columns, and diagonals in each dimension
-        for i in range(4):
-            for j in range(4):
-                lines.append([(i, j, k) for k in range(4)])  # x-y plane
-                lines.append([(i, k, j) for k in range(4)])  # x-z plane
-                lines.append([(k, i, j) for k in range(4)])  # y-z plane
+        for i in range(self.dimension):
+            for j in range(self.dimension):
+                lines.append([(i, j, k) for k in range(self.dimension)])  # x-y plane
+                lines.append([(i, k, j) for k in range(self.dimension)])  # x-z plane
+                lines.append([(k, i, j) for k in range(self.dimension)])  # y-z plane
         # Add diagonals within each plane
-        for i in range(4):
+        for i in range(self.dimension):
             # Diagonals in x-y planes (z fixed)
-            lines.append([(i, i, k) for k in range(4)])
-            lines.append([(i, 3-i, k) for k in range(4)])
+            lines.append([(i, i, k) for k in range(self.dimension)])
+            lines.append([(i, 3-i, k) for k in range(self.dimension)])
             # Diagonals in x-z planes (y fixed)
-            lines.append([(i, k, i) for k in range(4)])
-            lines.append([(i, k, 3-i) for k in range(4)])
+            lines.append([(i, k, i) for k in range(self.dimension)])
+            lines.append([(i, k, 3-i) for k in range(self.dimension)])
             # Diagonals in y-z planes (x fixed)
-            lines.append([(k, i, i) for k in range(4)])
-            lines.append([(k, i, 3-i) for k in range(4)])
+            lines.append([(k, i, i) for k in range(self.dimension)])
+            lines.append([(k, i, 3-i) for k in range(self.dimension)])
         # Add space diagonals
-        lines.append([(i, i, i) for i in range(4)])
-        lines.append([(i, i, 3-i) for i in range(4)])
-        lines.append([(i, 3-i, i) for i in range(4)])
-        lines.append([(3-i, i, i) for i in range(4)])
+        lines.append([(i, i, i) for i in range(self.dimension)])
+        lines.append([(i, i, 3-i) for i in range(self.dimension)])
+        lines.append([(i, 3-i, i) for i in range(self.dimension)])
+        lines.append([(3-i, i, i) for i in range(self.dimension)])
         return lines
 
     def is_full(self):
         # Check if the board is full
         return all(self.board[x][y][z] != 0 
-                  for x in range(4) for y in range(4) for z in range(4))
+                  for x in range(self.dimension) for y in range(self.dimension) for z in range(self.dimension))
     
     def is_terminal(self):
         """Check if the game is in a terminal state (won or drawn)"""

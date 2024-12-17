@@ -7,7 +7,7 @@ class MCTSAgent:
         self.exploration_constant = exploration_constant
         self.tree = {}  # transposition table
 
-    def select_move(self, game, time_limit=2):
+    def select_move(self, game, time_limit=3.5):
         start_time = time.perf_counter()
         game_state = self._get_state_key(game)
         
