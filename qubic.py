@@ -1,9 +1,9 @@
 class Qubic:
     def __init__(self):
-        # Initialize a 4x4x4 board
+        # Initialize the qubic board
         self.board = [[[0 for _ in range(4)] for _ in range(4)] for _ in range(4)]
         self.current_player = 1
-        self.dimension = 4
+        self.dimension = 3
     
     def dimensions(self):
         return len(self.board[0])
