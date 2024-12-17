@@ -12,7 +12,7 @@ def simple_heuristic(game):
     for line in game.generate_lines():
         player_count = sum(1 for x, y, z in line if game.board[x][y][z] == game.current_player)
         empty_count = sum(1 for x, y, z in line if game.board[x][y][z] == 0)
-        if player_count == 3 and empty_count == 1:
+        if player_count == 2 and empty_count == 1:
             for x, y, z in line:
                 if game.board[x][y][z] == 0:
                     return (x, y, z)
@@ -55,9 +55,9 @@ def static_evaluator(board, player):
         player_score += player_counts[n] * values[n]
         opponent_score += opponent_counts[n] * values[n] * opponent_multiplier
 
-    if player_counts[4] != 0:
+    if player_counts[game.dimensions()] != 0:
         return float('inf')
-    if opponent_counts[4] != 0:
+    if opponent_counts[game.dimensions()] != 0:
         return float('-inf')
 
     return player_score - opponent_score

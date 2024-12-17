@@ -49,6 +49,7 @@ def run_simulations(num_games, time_limit):
     print(f"Running simulations with {num_games} games each...")
 
     # BASELINE RUNS
+    
     print("\nRandom Agent vs Simple Greedy Agent (10,000 games):")
     agent1_wins, agent2_wins, draws = simulate_game(random_agent, simple_greedy_agent, 10_000)
     print(f"Random Agent wins: {agent1_wins} ({agent1_wins/10_000*100:.2f}%)")

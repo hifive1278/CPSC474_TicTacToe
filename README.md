@@ -30,7 +30,7 @@ example (that runs in ~5 minutes): `pypy3 simulate.py 25 0.25`
 
 ## RESEARCH QUESTION
 1. How does MCTS compare to Minimax alpha-beta pruning for Qubic?
-2. Why does MCTS perform worse, and specifically what enhancements are relevant to make it perform better?
+2. Follow-up after our prelim. results: Why does MCTS perform worse, and specifically what enhancements are relevant to make it perform better?
 
 ## PART 1: HOW DOES MCTS (+ ITS ENHANCEMENTS) STACK UP TO ALPHA-BETA PRUNING?
 *For quick replication/testing: if you run like 20-25 trials with 0.25s time limit for MCTS and depth of 4 for Alpha-Beta it should take like ~3-5 min.*
@@ -94,7 +94,7 @@ real	4m36.163s
 user	4m34.645s
 sys	0m1.481s
 ```
-**Observations**: 
+### Observations:
 * Alpha-Beta and MCTS both perform extremely well against the adv. greedy baseline (as they should...)
 * Alpha-Beta does much better compared to MCTS head-to-head, but not as much once you add the MAST enhancement to MCTS
 * MAST enhancement outperforms AMAF enhancement, which makes sense logically (as explained later)
@@ -325,3 +325,4 @@ As a result, we shouldn't expect it to perform the vanilla MCTS by too much (onc
 - Vary depth of Alpha-Beta pruning minimax search, hopefully this can get us a more game theory optimal agent.
 - Run our code/simulations with an even longer MCTS time on a more powerful system -- because theoretically, MCTS should converge to minimax.
 - Try other MCTS enhancements like parallelism. As Prof. Glenn said, parallelism isn't the best in Python, which is why we opted to not include it for our project.
+- Tune the static evaluator to be better. Right now, we have an (n+1)-in-a-row being weighted as 10x better than a n-in-a-row, but is this the most optimal value? If we did more testing, maybe our heuristics could improve.

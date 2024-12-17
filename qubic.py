@@ -56,6 +56,13 @@ class Qubic:
                         moves.append((x, y, z))
         return moves
     
+    def is_full(self):
+        return all(self.board[x][y][z] != 0 for x in range(self.dimension) for y in range(self.dimension) for z in range(self.dimension))
+    
+    def is_terminal(self):
+        # Check if the game is in a terminal state (won or drawn)
+        return self.get_winner() is not None or not self.get_legal_moves()
+    
     def get_winner(self):
         # check all possible winning lines
         lines = self.generate_lines()
@@ -93,14 +100,6 @@ class Qubic:
         lines.append([(i, 3-i, i) for i in range(self.dimension)])
         lines.append([(3-i, i, i) for i in range(self.dimension)])
         return lines
-
-    def is_full(self):
-        return all(self.board[x][y][z] != 0 
-                  for x in range(self.dimension) for y in range(self.dimension) for z in range(self.dimension))
-    
-    def is_terminal(self):
-        # Check if the game is in a terminal state (won or drawn)
-        return self.get_winner() is not None or not self.get_legal_moves()
     
     def clone(self):
         new_game = Qubic()
