@@ -9,7 +9,7 @@ December 17, 2024
 1. **Random**: randomly picks a valid position (out of the 64 maximum possible) to place piece. 
 2. **Simple Greedy**: if there's a 4-in-a-row available, play it to win. Otherwise, play randomly.
 3. **Advanced Greedy**: follows the static evaluator heuristic defined in our video. Essentially, it counts the # of n-in-a-rows and weights them accordingly based on the relative magnitude of n. Opponent's values are weighted slightly higher to encourage 'blocking' behavior.
-4. **Alpha-Beta Pruning Minimax**: search to a depth of 4.
+4. **Alpha-Beta Pruning Minimax**: search to a depth of 3.
 5. **MCTS**: standard MCTS that uses UCB formula for depth search. Uses dictionary rather than classes for slight time improvement.
 6. **MCTS w/ AMAF + RAVE**: MCTS but with the all-moves-as-first (AMAF) enhancement that is weighted alongside UCB using the Rapid Action Value Estimation (RAVE) enhancement. 
 7. **MCTS w/ MAST**: MCTS but with move averaging sampling technique (MCTS). Keeps track of reward statistics for certain moves and weights that when doing the simulation step.
@@ -23,7 +23,7 @@ Switched to MAST and AMAF MCTS enhancements over UCT-2 because we thought it'd h
 ```
 pypy3 simulate.py <# of game trials> <time limit for MCTS>
 ```
-(Alpha-Beta is always set to a depth of 4)
+(Alpha-Beta is always set to a depth of 3)
 
 example (that runs in ~5 minutes): `pypy3 simulate.py 25 0.25`
 
@@ -32,7 +32,7 @@ example (that runs in ~5 minutes): `pypy3 simulate.py 25 0.25`
 2. Follow-up after our preliminary results: Why does MCTS perform worse, and specifically what enhancements are relevant to make it perform better?
 
 ## PART 1: HOW DOES MCTS (+ ITS ENHANCEMENTS) STACK UP TO ALPHA-BETA PRUNING?
-*For quick replication/testing: if you run like 20-25 trials with 0.25s time limit for MCTS and depth of 4 for Alpha-Beta it should take like ~3-5 min.*
+*For quick replication/testing: if you run like 20-25 trials with 0.25s time limit for MCTS and depth of 3 for Alpha-Beta it should take like ~3-5 min.*
 
 ~5 min example:
 ```
@@ -121,11 +121,11 @@ sys	0m1.481s
 *because MCTS/Alpha-Beta takes so long to run, we opted for less trials
 
 ### The trials we ran: 
-- 4 depth, 0.25s, 25 games: quick! 5 min (results above)
-- 4 depth, 0.50s, 100 games: ~30 min
-- 4 depth, 1.00s, 375 games ~2.5 hrs
+- 3 depth, 0.25s, 25 games: quick! 5 min
+- 3 depth, 0.50s, 100 games: ~30 min
+- 3 depth, 1.00s, 375 games ~2.5 hrs
 
-### Results 1a: "quick" 30 min testing (0.5s time limit each, 4-depth)
+### Results 1a: "quick" 30 min testing (0.5s time limit each, 3-depth)
 ```
 hjc43@peacock:~/cs474/final_proj$ time pypy3 simulate.py 100 0.50
 Running simulations with 100 games each...
@@ -185,7 +185,7 @@ user	29m28.835s
 sys	0m9.867s
 ```
 
-### Results 1b: More robust testing - 2.5hrs (1s time, 4-depth - just like in pset4)
+### Results 1b: More robust testing - 2.5hrs (1s time, 3-depth - just like in pset4)
 ```
 hjc43@rattlesnake:~/cs474/final_proj$ time pypy3 simulate.py 375 1.0
 Running simulations with 375 games each...
@@ -264,7 +264,7 @@ Recall from above (part 1) that Alpha-Beta always beat the vanilla MCTS. However
 
 We decide to use 2.0s for the time limit of MCTS because now that we're just focusing on MCTS, we want the runs of it to be as thorough as possible, even if that means sacrificing some runtime. 
 
-### Results 2a: when we 50 trials (2s time limit, 4-depth)
+### Results 2a: when we 50 trials (2s time limit, 3-depth)
 ```
 hjc43@peacock:~/cs474/final_proj$ time pypy3 simulate.py 50 2.0
 Running simulations with 50 games each...
@@ -289,7 +289,7 @@ user	18m19.698s
 sys	0m6.387s
 ```
 
-### Results 2b: and when we ran 100 trials (2s time limit, 4-depth):
+### Results 2b: and when we ran 100 trials (2s time limit, 3-depth):
 ```
 hjc43@peacock:~/cs474/final_proj$ time pypy3 simulate.py 100 2.0
 Running simulations with 100 games each...

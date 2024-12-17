@@ -4,38 +4,31 @@ the alpha-beta pruning minimax agent
 '''
 
 import time
-from heuristics import static_evaluator
+import random
+from heuristics import static_evaluator, simple_heuristic
 
 class AlphaBetaAgent:
-    def __init__(self):
-        pass
+    def __init__(self, max_depth=3, random_move_prob=0.05):
+        self.max_depth = max_depth
+        self.random_move_prob = random_move_prob
 
     def select_move(self, game):
         start_time = time.time()
         depth = 1
-        # time_limit = 0.5  # seconds
-        deepest_move = None
-        deepest_score = float('-inf')
+        score = float('-inf')
+        move = None
 
         while True:
-            if depth > 3: # Can change this depth max to whatever we want
+            if depth > self.max_depth:
                 break
+            
+            if random.random() < self.random_move_prob:
+                move = simple_heuristic(game)
+            else:
+                score, move = self.minimax(game, depth, True, float('-inf'), float('inf'))
+                depth += 1
 
-            # print(game.display_board())
-
-            score, move = self.minimax(game, depth, True, float('-inf'), float('inf'))
-            # print()
-
-            # print(f"Depth {depth}: Best Score: {score}, Best Move: {move}")
-            deepest_score = score
-            deepest_move = move
-
-            # print(f"Passed depth of {depth}\n")
-            depth += 1
-
-        # print(f"Selected Move: {deepest_move}\n")
-        return deepest_move
-
+        return move
 
     def minimax(self, game, depth, is_maximizing, alpha, beta):
         winner = game.get_winner()

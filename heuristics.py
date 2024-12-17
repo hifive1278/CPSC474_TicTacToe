@@ -31,15 +31,15 @@ def static_evaluator(board, player):
     opponent_score = 0
     
     # define the value of n-in-a-rows
-    values = {1: 1, 2: 10, 3: 100, 4: 1000}
+    values = {1: 1, 2: 10, 3: 100}
     opponent_multiplier = 1.1  # Opponent's rows are slightly more valuable
 
     # generate all possible lines
     lines = game.generate_lines()
 
     # count n-in-a-rows for each player
-    player_counts = {1: 0, 2: 0, 3: 0, 4: 0}
-    opponent_counts = {1: 0, 2: 0, 3: 0, 4: 0}
+    player_counts = {1: 0, 2: 0, 3: 0}
+    opponent_counts = {1: 0, 2: 0, 3: 0}
 
     for line in lines:
         player_pieces = sum(1 for x, y, z in line if board[x][y][z] == player)

@@ -6,7 +6,7 @@ contains the game logic for Qubic.
 class Qubic:
     def __init__(self):
         # Initialize the qubic board
-        self.board = [[[0 for _ in range(4)] for _ in range(4)] for _ in range(4)]
+        self.board = [[[0 for _ in range(3)] for _ in range(3)] for _ in range(3)]
         self.current_player = 1
         self.dimension = 3  # to shorten the time to run our trials... not enough comp. power :(
 
@@ -84,18 +84,18 @@ class Qubic:
         for i in range(self.dimension):
             # Diagonals in x-y planes (z fixed)
             lines.append([(i, i, k) for k in range(self.dimension)])
-            lines.append([(i, self.dimension-i, k) for k in range(self.dimension)])
+            lines.append([(i, (self.dimension-1)-i, k) for k in range(self.dimension)])
             # Diagonals in x-z planes (y fixed)
             lines.append([(i, k, i) for k in range(self.dimension)])
-            lines.append([(i, k, self.dimension-i) for k in range(self.dimension)])
+            lines.append([(i, k, (self.dimension-1)-i) for k in range(self.dimension)])
             # Diagonals in y-z planes (x fixed)
             lines.append([(k, i, i) for k in range(self.dimension)])
-            lines.append([(k, i, self.dimension-i) for k in range(self.dimension)])
+            lines.append([(k, i, (self.dimension-1)-i) for k in range(self.dimension)])
         # Add space diagonals
         lines.append([(i, i, i) for i in range(self.dimension)])
-        lines.append([(i, i, self.dimension-i) for i in range(self.dimension)])
-        lines.append([(i, self.dimension-i, i) for i in range(self.dimension)])
-        lines.append([(self.dimension-i, i, i) for i in range(self.dimension)])
+        lines.append([(i, i, (self.dimension-1)-i) for i in range(self.dimension)])
+        lines.append([(i, (self.dimension-1)-i, i) for i in range(self.dimension)])
+        lines.append([((self.dimension-1)-i, i, i) for i in range(self.dimension)])
         return lines
 
     def dimensions(self):
