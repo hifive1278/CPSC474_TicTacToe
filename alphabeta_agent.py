@@ -1,3 +1,9 @@
+'''
+alphabeta_agent.py
+the alpha-beta pruning minimax agent
+'''
+
+
 import time
 from heuristics import static_evaluator_eval1
 
@@ -8,7 +14,7 @@ class AlphaBetaAgent:
     def select_move(self, game):
         start_time = time.time()
         depth = 1
-        time_limit = 0.5  # seconds
+        # time_limit = 0.5  # seconds
         deepest_move = None
         deepest_score = float('-inf')
 

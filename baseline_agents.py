@@ -1,4 +1,7 @@
-# agents.py
+'''
+baseline_agents.py
+the random, simple greedy, and adv. greedy agents.
+'''
 
 import random
 from heuristics import simple_heuristic, static_evaluator_eval1

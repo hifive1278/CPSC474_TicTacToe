@@ -1,3 +1,8 @@
+'''
+qubic.py
+contains the game logic for Qubic.
+'''
+
 class Qubic:
     def __init__(self):
         # Initialize the qubic board

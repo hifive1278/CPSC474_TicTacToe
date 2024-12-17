@@ -1,3 +1,9 @@
+'''
+mcts_agents.py
+code for the MCTS agent and for its two enhancements: AMAF and MAST
+'''
+
+
 import time
 from math import sqrt, log
 from random import choice, random

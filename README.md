@@ -1,24 +1,35 @@
 # CPSC474_TicTacToe
 Henry Chen, Matt Neissen
 
+## PROJECT OVERVIEW
+
 ### Overview of our agents developed:
 
 1. **Random**: randomly picks a valid position out of the 64 max. possible to place piece. 
 2. **Simple Greedy**: if there's a 4-in-a-row available, play it to win. Otherwise, play randomly.
 3. **Advanced Greedy**: follow the static evaluator heuristic 
-4. **Alpha-Beta pruning Minimax**
-5. **MCTS**
-6. **MCTS w/ AMAF + RAVE**
-7. **MCTS w/ MAST**
+4. **Alpha-Beta pruning Minimax**: search to a depth of 4.
+5. **MCTS**: standard MCTS that uses UCB formula for depth search. uses dictionary rather than classes for slight time efficiency.
+6. **MCTS w/ AMAF + RAVE**: MCTS but with the all-moves-as-first (AMAF) enhancement that is weighted alongside UCB using the Rapid Action Value
+Estimation (RAVE) enhancement. 
+7. **MCTS w/ MAST**: MCTS but with move averaging sampling technique (MCTS)
 
 ### Simplifications since our video
-Switched from 4x4x4 to 3x3x3 because otherwise the state space would be too large, and MCTS would need an absurdly long amount of time per move (5+ sec) in order to get reasonable results that beat the greedy baseline.
+Switched from 4x4x4 to 3x3x3 because otherwise the state space would be too large, and MCTS would need an absurdly long amount of time per move (5s+) in order to get reasonable results that beat the greedy baseline.
+
+Switched to MAST and AMAF MCTS enhancements over UCT2 because we thought it'd have more relevant impacts for a game like Qubic.
 
 ### Running our code
 ```
 pypy3 simulate.py <# of trials> <time limit for MCTS>
 ```
 (Alpha-Beta is always set to a depth of 4)
+
+example (that runs in minutes): `pypy3 simulate.py 25 0.25`
+
+## RESEARCH QUESTION
+1. How does MCTS compare to Minimax alpha-beta pruning for Qubic?
+2. Why does MCTS perform worse, and specifically what enhancements are relevant to make it perform better?
 
 ## PART 1: HOW DOES MCTS (+ ITS ENHANCEMENTS) STACK UP TO ALPHA-BETA PRUNING?
 *For quick replication/testing: if you run like 20-25 trials with 0.25s time limit for MCTS and depth of 4 for Alpha-Beta it should take like ~3-5 min.*
@@ -80,18 +91,18 @@ hjc43@peacock:~/cs474/final_proj$ time pypy3 simulate.py 25 0.25
 Running simulations with 25 games each...
 
 Random Agent vs Simple Greedy Agent (10,000 games):
-Random Agent wins: 2 (0.20%)
-Simple Greedy Agent wins: 998 (99.80%)
+Random Agent wins: 17 (0.17%)
+Simple Greedy Agent wins: 9983 (99.83%)
 Draws: 0 (0.00%)
 
 Random Agent vs Advanced Greedy Agent (10,000 games):
-Random Agent wins: 0 (0.00%)
-Advanced Greedy Agent wins: 1000 (100.00%)
+Random Agent wins: 2 (0.02%)
+Advanced Greedy Agent wins: 9998 (99.98%)
 Draws: 0 (0.00%)
 
 Simple Greedy Agent vs Advanced Greedy Agent (10,000 games):
 Simple Greedy Agent wins: 0 (0.00%)
-Advanced Greedy Agent wins: 1000 (100.00%)
+Advanced Greedy Agent wins: 10000 (100.00%)
 Draws: 0 (0.00%)
 
 Alpha Beta Agent vs Advanced Greedy Agent (25 games):
@@ -133,12 +144,12 @@ real	4m36.163s
 user	4m34.645s
 sys	0m1.481s
 ```
-**Interpretation**: 
-* Alpha-Beta and MCTS both perform extremely well against the adv. greedy baseline
+**Observations**: 
+* Alpha-Beta and MCTS both perform extremely well against the adv. greedy baseline (as they should...)
 * Alpha-Beta does much better compared to MCTS head-to-head, but not as much once you add the MAST enhancement to MCTS
 * MAST enhancement outperforms AMAF enhancement, which makes sense logically (as explained later)
 
-### The trials we ran: 
+### The comparisons we made:
 Baseline models (10,000 trials)
 - Random vs. Simple Greedy
 - Random vs. Adv. Greedy
@@ -157,6 +168,10 @@ Comparing MAST to AMAF enhancements (100-375 trials) (remove for later section)
 - MAST vs. Adv. Greedy
 - AMAF vs. Adv. Greedy
 
+### The trials we ran: 
+- 4 depth, 0.25s, 25 games: quick! 5 min
+- 4 depth, 0.50s, 100 games: 22 min
+- 4 depth, 1.00s, 375 games 4 hrs
 *because MCTS/Alpha-Beta takes so long to run, we opted for less trials
 
 ### Results 1: quick 20 min testing (0.5s time limit each, 4-depth)
@@ -304,3 +319,6 @@ Draws: 0 (0.00%)
 These results make sense logically because AMAF (with RAVE) is not really built for Qubic. Move order is highly critical, making the AMAF assumption that moves have similar values regardless of when they're played potentially misleading.
 
 Move Averaging Sampling Technique (MAST), on the other hand, learns to bias moves that are better (i.e. taking the center or corners?). It can potentially rapidly identify generally good moves, leading to faster convergence on optimal play. One draw back, though, is that it tends to favor games with a larger state space, so that it can adequately update its global statistics for move rewards to a useful level.
+
+## NEXT STEPS?
+Vary depth of Alpha-Beta pruning minimax search. Run our code/simulations with an even longer MCTS time on a more powerful system -- because theoretically, MCTS should converge to minimax.
