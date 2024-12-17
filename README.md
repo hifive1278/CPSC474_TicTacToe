@@ -11,12 +11,16 @@ Henry Chen, Matt Neissen
 6. **MCTS w/ AMAF + RAVE**
 7. **MCTS w/ MAST**
 
+### Simplifications since our video
+Switched from 4x4x4 to 3x3x3 because otherwise the state space would be too large, and MCTS would need an absurdly long amount of time per move (5+ sec) in order to get reasonable results that beat the greedy baseline.
+
 ### Running our code
 ```
 pypy3 simulate.py <# of trials> <time limit for MCTS>
 ```
 (Alpha-Beta is always set to a depth of 4)
 
+## PART 1: HOW DOES MCTS (+ ITS ENHANCEMENTS) STACK UP TO ALPHA-BETA PRUNING?
 *For quick replication/testing: if you run like 20-25 trials with 0.25s time limit for MCTS and depth of 4 for Alpha-Beta it should take like ~3-5 min.*
 ```
 hjc43@peacock:~/cs474/final_proj$ time pypy3 simulate.py 20 0.25
@@ -155,7 +159,7 @@ Comparing MAST to AMAF enhancements (100-375 trials) (remove for later section)
 
 *because MCTS/Alpha-Beta takes so long to run, we opted for less trials
 
-### Results 1: quick 20 min testing (0.5 time limit each, 4-depth)
+### Results 1: quick 20 min testing (0.5s time limit each, 4-depth)
 ```
 hjc43@rattlesnake:~/cs474/final_proj$ time pypy3 simulate.py 100
 Running simulations with 100 games each...
@@ -210,7 +214,7 @@ user	22m4.281s
 sys	0m7.071s
 ```
 
-### Results 2: More robust testing - 4hrs (1 second time, 4-depth, just like in pset4)
+### Results 2: More robust testing - 4hrs (1s time, 4-depth, just like in pset4)
 
 
 
@@ -225,7 +229,7 @@ Alpha-Beta has a better pruning step than MCTS and considering how much there is
 ## Part 2. EXPLORATION OF MCTS ENHANCEMENTS
 After finding out Alpha-Beta and MCTS had similar-ish results, we decided to further explore MCTS and how the different enhancements might affect it?
 
-### when we 50 trials (2 second time limit each):
+### when we 50 trials (2s time limit each):
 ```
 hjc43@rattlesnake:~/cs474/final_proj$ pypy3 simulate.py 50
 Running simulations with 50 games each...
@@ -261,7 +265,7 @@ Advanced Greedy Agent wins: 6 (12.00%)
 Draws: 0 (0.00%)
 ```
 
-### and when we ran 100 trials (2 second time limit each):
+### and when we ran 100 trials (2s time limit each):
 ```
 hjc43@rattlesnake:~/cs474/final_proj$ pypy3 simulate.py 100
 Running simulations with 100 games each...
