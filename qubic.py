@@ -6,6 +6,33 @@ class Qubic:
         self.board = [[[0 for _ in range(4)] for _ in range(4)] for _ in range(4)]
         self.current_player = 1
 
+    def display_board(self):
+        print("Curr Player: " + str(self.current_player))
+        # Iterate over each row in the layers
+        for y in range(4):
+            # Prepare a list to hold strings for each layer's row
+            layer_rows = []
+            for z in range(4):
+                row = []
+                for x in range(4):
+                    # Get the value at the current position
+                    value = self.board[z][y][x]
+                    # Convert the value to a string representation
+                    if value == 0:
+                        row.append('.')
+                    elif value == 1:
+                        row.append('1')
+                    elif value == 2:
+                        row.append('2')
+                # Join the row into a string and add it to the list
+                layer_rows.append(" ".join(row))
+            
+            # Print all rows for this y level side by side
+            print("   ".join(layer_rows))
+        
+        # Print a separator line between different y levels for clarity
+        print("\n" + "-" * 30 + "\n")
+
     def make_move(self, x, y, z):
         # Place a move on the board
         if self.board[x][y][z] == 0:

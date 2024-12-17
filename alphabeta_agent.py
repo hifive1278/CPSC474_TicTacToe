@@ -11,75 +11,63 @@ class AlphaBetaAgent:
     def select_move(self, game):
         start_time = time.time()
         depth = 1
-        time_limit = 6 # seconds
-        best_move = None
-        best_score = float('-inf')
+        time_limit = 6  # seconds
+        deepest_move = None
+        deepest_score = float('-inf')
 
         while True:
-            curr_best_move = None
-            curr_best_score = float('-inf')
-
-            for move in self.get_legal_moves(game):
-                if time.time() > start_time+time_limit or depth > 20:
-                    break
-                # if depth > 4:
-                #     break
-                game.make_move(*move)
-                score = self.minimax(game, depth - 1, True, float('-inf'), float('inf'))
-                game.board[move[0]][move[1]][move[2]] = 0  # Undo move
-                #game.switch_player()  # Switch back player
-                if score > curr_best_score:
-                    curr_best_score = score
-                    curr_best_move = move
-
-            if time.time() > start_time+time_limit or depth > 20:
+            if depth > 3:
                 break
-            # if depth > 4:
-            #     break
-            
-            if curr_best_score > best_score:
-                best_score = curr_best_score
-                best_move = curr_best_move
 
-            print("Passed depth of " + str(depth))
+            print(game.display_board())
+
+            score, move = self.minimax(game, depth, True)
+            print()
+
+            print(f"Depth {depth}: Best Score: {score}, Best Move: {move}")
+            deepest_score = score
+            deepest_move = move
+
+            print(f"Passed depth of {depth}\n")
             depth += 1
-        
-        print(best_move)
-        return best_move
 
-    def minimax(self, game, depth, is_maximizing, alpha, beta):
+        print(f"Selected Move: {deepest_move}\n")
+        return deepest_move
+
+
+    def minimax(self, game, depth, is_maximizing):
         winner = game.check_winner()
         if winner != 0:
-            return float('inf') if winner == game.current_player else float('-inf')
+            return (float('inf') if winner == game.current_player else float('-inf'), None)
         if game.is_full() or depth == 0:
-            return static_evaluator_eval1(game.board, game.current_player)
+            return (static_evaluator_eval1(game.board, 1), None)
 
         if is_maximizing:
             max_eval = float('-inf')
+            best_move = None
             for move in self.get_legal_moves(game):
-                game.make_move(*move)
-                # game.switch_player() # maybe??
-                eval = self.minimax(game, depth - 1, False, alpha, beta)
+                game.board[move[0]][move[1]][move[2]] = game.current_player
+                game.switch_player()
+                eval, _ = self.minimax(game, depth - 1, False)
                 game.board[move[0]][move[1]][move[2]] = 0  # Undo move
-                #game.switch_player()  # Switch back player
-                max_eval = max(max_eval, eval)
-                alpha = max(alpha, eval)
-                if beta <= alpha:
-                    break
-            return max_eval
+                game.switch_player()  # Switch back player
+                if eval > max_eval:
+                    max_eval = eval
+                    best_move = move
+            return (max_eval, best_move)
         else:
             min_eval = float('inf')
+            best_move = None
             for move in self.get_legal_moves(game):
-                game.make_move(*move)
-                # game.switch_player() # maybe??
-                eval = self.minimax(game, depth - 1, True, alpha, beta)
+                game.board[move[0]][move[1]][move[2]] = game.current_player
+                game.switch_player()
+                eval, _ = self.minimax(game, depth - 1, True)
                 game.board[move[0]][move[1]][move[2]] = 0  # Undo move
-                #game.switch_player()  # Switch back player
-                min_eval = min(min_eval, eval)
-                beta = min(beta, eval)
-                if beta <= alpha:
-                    break
-            return min_eval
+                game.switch_player()  # Switch back player
+                if eval < min_eval:
+                    min_eval = eval
+                    best_move = move
+            return (min_eval, best_move)
 
     def get_legal_moves(self, game):
         return [(x, y, z) for x in range(4) for y in range(4) for z in range(4) if game.board[x][y][z] == 0]
