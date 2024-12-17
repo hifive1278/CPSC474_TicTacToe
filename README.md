@@ -40,18 +40,18 @@ hjc43@peacock:~/cs474/final_proj$ time pypy3 simulate.py 20 0.25
 Running simulations with 20 games each...
 
 Random Agent vs Simple Greedy Agent (10,000 games):
-Random Agent wins: 3 (0.30%)
-Simple Greedy Agent wins: 997 (99.70%)
+Random Agent wins: 13 (0.30%)
+Simple Greedy Agent wins: 9987 (99.87%)
 Draws: 0 (0.00%)
 
 Random Agent vs Advanced Greedy Agent (10,000 games):
-Random Agent wins: 1 (0.10%)
-Advanced Greedy Agent wins: 999 (99.90%)
+Random Agent wins: 2 (0.02%)
+Advanced Greedy Agent wins: 9998 (99.98%)
 Draws: 0 (0.00%)
 
 Simple Greedy Agent vs Advanced Greedy Agent (10,000 games):
 Simple Greedy Agent wins: 0 (0.00%)
-Advanced Greedy Agent wins: 1000 (100.00%)
+Advanced Greedy Agent wins: 10000 (100.00%)
 Draws: 0 (0.00%)
 
 Alpha Beta Agent vs Advanced Greedy Agent (20 games):
