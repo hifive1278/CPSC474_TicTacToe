@@ -60,8 +60,8 @@ Advanced Greedy Agent wins: 0 (0.00%)
 Draws: 0 (0.00%)
 
 MCTS Agent vs Advanced Greedy Agent (25 games):
-MCTS wins: 18 (72.00%)
-Advanced Greedy Agent wins: 7 (28.00%)
+MCTS wins: 24 (96.00%)
+Advanced Greedy Agent wins: 1 (4.00%)
 Draws: 0 (0.00%)
 
 Alpha Beta Agent vs MCTS Agent (25 games):
@@ -70,8 +70,8 @@ MCTS Agent wins: 0 (0.00%)
 Draws: 0 (0.00%)
 
 Alpha Beta Agent vs MAST Agent (25 games):
-Alpha Beta Agent wins: 19 (76.00%)
-MAST Agent wins: 6 (24.00%)
+Alpha Beta Agent wins: 22 (88.00%)
+MAST Agent wins: 3 (12.00%)
 Draws: 0 (0.00%)
 
 Alpha Beta Agent vs AMAF Agent (25 games):
@@ -80,13 +80,13 @@ AMAF Agent wins: 0 (0.00%)
 Draws: 0 (0.00%)
 
 MAST Agent vs Advanced Greedy Agent (25 games):
-MAST wins: 23 (92.00%)
-Advanced Greedy Agent wins: 2 (8.00%)
+MAST wins: 24 (96.00%)
+Advanced Greedy Agent wins: 1 (4.00%)
 Draws: 0 (0.00%)
 
 AMAF Agent vs Advanced Greedy Agent (25 games):
-AMAF wins: 10 (40.00%)
-Advanced Greedy Agent wins: 15 (60.00%)
+AMAF wins: 22 (88.00%)
+Advanced Greedy Agent wins: 3 (12.00%)
 Draws: 0 (0.00%)
 
 real	4m36.163s
@@ -94,7 +94,8 @@ user	4m34.645s
 sys	0m1.481s
 ```
 ### Observations:
-* Alpha-Beta and MCTS both perform extremely well against the advanced greedy baseline (as we expected)
+* Adv. greedy always out performed simple greedy, which is expected. And both out perform the random agent, which is also expected.
+* Alpha-Beta and MCTS both perform extremely well against the advanced greedy baseline (as we expected considering they use so much more computational power than the greedy)
 * Alpha-Beta does much better compared to MCTS head-to-head, but not as much once you add the MAST enhancement to MCTS
 * MAST enhancement outperforms AMAF enhancement, which makes sense logically (as explained later)
 
@@ -120,7 +121,7 @@ sys	0m1.481s
 *because MCTS/Alpha-Beta takes so long to run, we opted for less trials
 
 ### The trials we ran: 
-- 4 depth, 0.25s, 25 games: quick! 5 min
+- 4 depth, 0.25s, 25 games: quick! 5 min (results above)
 - 4 depth, 0.50s, 100 games: ~30 min
 - 4 depth, 1.00s, 375 games ~2.5 hrs
 
@@ -160,8 +161,8 @@ MCTS Agent wins: 0 (0.00%)
 Draws: 0 (0.00%)
 
 Alpha Beta Agent vs MAST Agent (100 games):
-Alpha Beta Agent wins: 41 (41.00%)
-MAST Agent wins: 59 (59.00%)
+Alpha Beta Agent wins: 92 (92.00%)
+MAST Agent wins: 8 (8.00%)
 Draws: 0 (0.00%)
 
 Alpha Beta Agent vs AMAF Agent (100 games):
@@ -175,8 +176,8 @@ Advanced Greedy Agent wins: 0 (0.00%)
 Draws: 0 (0.00%)
 
 AMAF Agent vs Advanced Greedy Agent (100 games):
-AMAF wins: 79 (79.00%)
-Advanced Greedy Agent wins: 21 (21.00%)
+AMAF wins: 83 (83.00%)
+Advanced Greedy Agent wins: 17 (17.00%)
 Draws: 0 (0.00%)
 
 real	29m38.983s
@@ -243,6 +244,7 @@ sys	0m26.975s
 - Alpha-Beta always beat the vanilla MCTS.
 - However, with the MAST enhancement, MCTS was only beaten 90.93% of the time by Alpha-Beta
 - MAST performs better than AMAF against the baseline advanced greedy -- it wins 100% of the time compared to AMAF's 96%. (this will be explored more in part 2).
+- When compared to the advanced greedy benchmark, MAST performs on par or slightly better than vanilla MCTS.
 
 ### Why is MCTS performing worse than Alpha-Beta here?
 We corroborate the same results as when you run the quick ~3.5 min test. Alpha-Beta has a better pruning step than MCTS and considering how big the state-size is, it means it can search more move possibilities in the limited computational time that we have. MCTS had to be limited to 0.5s for it to run in a reasonable time. Based on our testing/tuning, it would take a search time of roughly 5s or more for it to be competitive with Alpha-Beta (i.e. MCTS wins 20-30% of the time). But that also requires a large trade-off in terms of time and computational power. 
@@ -278,8 +280,8 @@ Advanced Greedy Agent wins: 2 (4.00%)
 Draws: 0 (0.00%)
 
 AMAF Agent vs Advanced Greedy Agent (50 games):
-AMAF wins: 38 (76.00%)
-Advanced Greedy Agent wins: 12 (24.00%)
+AMAF wins: 43 (86.00%)
+Advanced Greedy Agent wins: 7 (14.00%)
 Draws: 0 (0.00%)
 
 real	18m26.317s
@@ -312,6 +314,10 @@ user	37m57.717s
 sys	0m10.093s
 ```
 
+### Observations:
+- MAST does on par with MCTS when the search time per move is adequately high (2s in our case)
+- MAST outperforms AMAF when compared to the greedy agent. (100% win rate vs. 87%)
+
 ### Does this make sense -- why does MAST perform better than AMAF?
 
 These results make sense logically because AMAF (with RAVE) is not really built for Qubic. Move order is highly critical, making the AMAF assumption that moves have similar values regardless of when they're played potentially misleading.
@@ -319,6 +325,21 @@ These results make sense logically because AMAF (with RAVE) is not really built 
 Move Averaging Sampling Technique (MAST), on the other hand, learns to bias moves that are better (i.e. taking the corners or centers). It can potentially rapidly identify generally good moves, leading to faster convergence on optimal play. One drawback, though, is that it tends to favor games with a larger state space, so that it can adequately update its global statistics for move rewards to a useful level.
 
 As a result, we shouldn't expect it to perform the vanilla MCTS by too much (once we are running with an adequate time-limit, which 2s meets). We see this in (2b) when MAST has the same win rate as MCTS and in (2a) when it differs by only 2%. 
+
+## PART 3: SURPRISINGLY THERE HAVEN'T BEEN ANY DRAWS -- BUT WHAT IF ALPHA-BETA PLAYS AGAINST ITSELF?
+We noticed that we didn't get any draws yet, which we thought was odd considering that normal Tic-Tac-Toe should always end in a draw. Maybe this was because our agents just had varying levels of skill. To test this, we ran Alpha-Beta against itself. 
+
+```
+hjc43@raven:~/cs474/final_proj$ pypy3 simulate.py 100 
+Running simulations with 100 games each...
+
+Alpha-Beta Agent vs Alpha-Beta (100 games):
+Alpha-Beta P1 wins: 100 (100.00%)
+Alpha-Beta P2 wins: 0 (0.00%)
+Draws: 0 (0.00%)
+```
+### Observations
+Clear first-move advantage here, just like in Tic-Tac-Toe. We assume that based on how our search-depth works, moving first just always leads to a win — it's hard for P2 to defend as well with our heuristic (?). Maybe in the future, we can test how how much we should weight the opponents static eval score so that we can induce more "defensive-blocking" behavior?
 
 ## NEXT STEPS?
 - Vary depth of Alpha-Beta pruning minimax search, hopefully this can get us a more game theory optimal agent.
