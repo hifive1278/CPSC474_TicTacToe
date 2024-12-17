@@ -12,7 +12,7 @@ def simple_heuristic(game):
     for line in game.generate_lines():
         player_count = sum(1 for x, y, z in line if game.board[x][y][z] == game.current_player)
         empty_count = sum(1 for x, y, z in line if game.board[x][y][z] == 0)
-        if player_count == 2 and empty_count == 1:
+        if player_count == game.dimensions()-1 and empty_count == 1:
             for x, y, z in line:
                 if game.board[x][y][z] == 0:
                     return (x, y, z)
