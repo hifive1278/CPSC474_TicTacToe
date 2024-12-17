@@ -8,7 +8,7 @@ class AlphaBetaAgent:
     def select_move(self, game):
         start_time = time.time()
         depth = 1
-        time_limit = 6  # seconds
+        time_limit = 3.5  # seconds
         deepest_move = None
         deepest_score = float('-inf')
 
