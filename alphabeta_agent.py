@@ -4,7 +4,7 @@ the alpha-beta pruning minimax agent
 '''
 
 import time
-from heuristics import static_evaluator_eval1
+from heuristics import static_evaluator
 
 class AlphaBetaAgent:
     def __init__(self):
@@ -45,7 +45,7 @@ class AlphaBetaAgent:
             else:
                 return (float('inf') if winner == 1 else float('-inf'), None)
         if depth == 0:
-            return (static_evaluator_eval1(game.board, 1), None)
+            return (static_evaluator(game.board, 1), None)
 
         if is_maximizing:
             max_eval = float('-inf')

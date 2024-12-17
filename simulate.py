@@ -48,7 +48,7 @@ def run_simulations(num_games, time_limit):
 
     print(f"Running simulations with {num_games} games each...")
 
-    # BASIC RUNS
+    # BASELINE RUNS
     print("\nRandom Agent vs Simple Greedy Agent (10,000 games):")
     agent1_wins, agent2_wins, draws = simulate_game(random_agent, simple_greedy_agent, 10_000)
     print(f"Random Agent wins: {agent1_wins} ({agent1_wins/10_000*100:.2f}%)")
@@ -67,7 +67,7 @@ def run_simulations(num_games, time_limit):
     print(f"Advanced Greedy Agent wins: {agent2_wins} ({agent2_wins/10_000*100:.2f}%)")
     print(f"Draws: {draws} ({draws/10_000*100:.2f}%)")
     
-    # BASELINES against adv. greedy
+    # OUR AGENTS vs. baseline adv. greedy
     
     print(f"\nAlpha Beta Agent vs Advanced Greedy Agent ({num_games} games):")
     agent1_wins, agent2_wins, draws = simulate_game(alphabeta_agent, advanced_greedy_agent, num_games)
@@ -120,7 +120,7 @@ if __name__ == "__main__":
     num_games = 5
     time_limit = 1.0
 
-    # Parse command line arguments
+    # parse command line arguments
     if len(sys.argv) > 2:
         try:
             num_games = int(sys.argv[1])

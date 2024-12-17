@@ -57,15 +57,15 @@ class Qubic:
         return moves
     
     def get_winner(self):
-        # Check all possible winning lines
+        # check all possible winning lines
         lines = self.generate_lines()
         for line in lines:
             first = self.board[line[0][0]][line[0][1]][line[0][2]]
             if first != 0 and all(self.board[x][y][z] == first for x, y, z in line):
                 return first
         if self.is_full():
-            return 0  # Draw
-        return None  # Game not finished
+            return 0  # draw
+        return None  # game not finished
     
     def generate_lines(self):
         # Generate all possible winning lines

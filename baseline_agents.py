@@ -4,7 +4,7 @@ the random, simple greedy, and adv. greedy agents.
 '''
 
 import random
-from heuristics import simple_heuristic, static_evaluator_eval1
+from heuristics import simple_heuristic, static_evaluator
 
 class RandomAgent:
     def __init__(self):
@@ -34,7 +34,7 @@ class AdvancedGreedyAgent:
                 for z in range(game.dimensions()):
                     if game.board[x][y][z] == 0:
                         game.board[x][y][z] = game.current_player
-                        score = static_evaluator_eval1(game.board, game.current_player)
+                        score = static_evaluator(game.board, game.current_player)
                         game.board[x][y][z] = 0
 
                         if score > best_score:

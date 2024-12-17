@@ -25,7 +25,7 @@ def simple_heuristic(game):
                     return (x, y, z)
     return None
 
-def static_evaluator_eval1(board, player):
+def static_evaluator(board, player):
     opponent = 3 - player
     player_score = 0
     opponent_score = 0
