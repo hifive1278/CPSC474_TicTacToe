@@ -33,6 +33,7 @@ example (that runs in ~5 minutes): `pypy3 simulate.py 25 0.25`
 
 ## PART 1: HOW DOES MCTS (+ ITS ENHANCEMENTS) STACK UP TO ALPHA-BETA PRUNING?
 *For quick replication/testing: if you run like 20-25 trials with 0.25s time limit for MCTS and depth of 4 for Alpha-Beta it should take like ~3-5 min.*
+~3.5 min example:
 ```
 hjc43@peacock:~/cs474/final_proj$ time pypy3 simulate.py 20 0.25
 Running simulations with 20 games each...
@@ -86,6 +87,7 @@ real	3m21.225s
 user	3m20.152s
 sys	0m1.026s
 ```
+~5 min example:
 ```
 hjc43@peacock:~/cs474/final_proj$ time pypy3 simulate.py 25 0.25
 Running simulations with 25 games each...
@@ -309,7 +311,7 @@ A follow-up question is: if MCTS performs worse than Alpha-Beta, what enhancemen
 ## PART 2. EXPLORATION OF MCTS ENHANCEMENTS
 After finding out Alpha-Beta and MCTS had similar-ish results (compared to greedy) but Alpha-Beta out-performed MCTS head-to-head, we decided to further explore MCTS and how the different enhancements might affect it?
 
-Recall from above that Alpha-Beta always beat the vanilla MCTS. However, with the MAST enhancement, MCTS was only beaten 90.93% of the time by Alpha-Beta. Clearly, the MAST enhancement is beneficial to MCTS in the context of Qubic. But why is that? And how do the other enhancements stand up to that? These questions are the foundation of the following two experiments:
+Recall from above (part 1) that Alpha-Beta always beat the vanilla MCTS. However, with the MAST enhancement, MCTS was only beaten 90.93% of the time by Alpha-Beta. Clearly, the MAST enhancement is beneficial to MCTS in the context of Qubic. But why is that? And how do the other enhancements stand up to that? These questions are the foundation of the following two experiments:
 
 ### Results 2a: when we 50 trials (2s time limit, 4-depth)
 ```
