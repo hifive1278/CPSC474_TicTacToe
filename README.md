@@ -33,6 +33,7 @@ example (that runs in ~5 minutes): `pypy3 simulate.py 25 0.25`
 
 ## PART 1: HOW DOES MCTS (+ ITS ENHANCEMENTS) STACK UP TO ALPHA-BETA PRUNING?
 *For quick replication/testing: if you run like 20-25 trials with 0.25s time limit for MCTS and depth of 4 for Alpha-Beta it should take like ~3-5 min.*
+
 ~3.5 min example:
 ```
 hjc43@peacock:~/cs474/final_proj$ time pypy3 simulate.py 20 0.25
