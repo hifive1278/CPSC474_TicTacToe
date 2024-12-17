@@ -9,9 +9,6 @@ class Qubic:
         self.board = [[[0 for _ in range(4)] for _ in range(4)] for _ in range(4)]
         self.current_player = 1
         self.dimension = 3  # to shorten the time to run our trials... not enough comp. power :(
-    
-    def dimensions(self):
-        return len(self.board[0])
 
     def display_board(self):
         print("Curr Player: " + str(self.current_player))
@@ -87,19 +84,23 @@ class Qubic:
         for i in range(self.dimension):
             # Diagonals in x-y planes (z fixed)
             lines.append([(i, i, k) for k in range(self.dimension)])
-            lines.append([(i, 3-i, k) for k in range(self.dimension)])
+            lines.append([(i, self.dimension-i, k) for k in range(self.dimension)])
             # Diagonals in x-z planes (y fixed)
             lines.append([(i, k, i) for k in range(self.dimension)])
-            lines.append([(i, k, 3-i) for k in range(self.dimension)])
+            lines.append([(i, k, self.dimension-i) for k in range(self.dimension)])
             # Diagonals in y-z planes (x fixed)
             lines.append([(k, i, i) for k in range(self.dimension)])
-            lines.append([(k, i, 3-i) for k in range(self.dimension)])
+            lines.append([(k, i, self.dimension-i) for k in range(self.dimension)])
         # Add space diagonals
         lines.append([(i, i, i) for i in range(self.dimension)])
-        lines.append([(i, i, 3-i) for i in range(self.dimension)])
-        lines.append([(i, 3-i, i) for i in range(self.dimension)])
-        lines.append([(3-i, i, i) for i in range(self.dimension)])
+        lines.append([(i, i, self.dimension-i) for i in range(self.dimension)])
+        lines.append([(i, self.dimension-i, i) for i in range(self.dimension)])
+        lines.append([(self.dimension-i, i, i) for i in range(self.dimension)])
         return lines
+
+    def dimensions(self):
+        # return self.dimension
+        return len(self.board[0])
     
     def clone(self):
         new_game = Qubic()

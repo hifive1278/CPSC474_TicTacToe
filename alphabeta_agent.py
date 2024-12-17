@@ -81,4 +81,4 @@ class AlphaBetaAgent:
             return (min_eval, best_move)
 
     def get_legal_moves(self, game):
-        return [(x, y, z) for x in range(4) for y in range(4) for z in range(4) if game.board[x][y][z] == 0]
+        return [(x, y, z) for x in range(len(game.board[0])) for y in range(len(game.board[0])) for z in range(len(game.board[0])) if game.board[x][y][z] == 0]
