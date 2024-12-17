@@ -85,7 +85,7 @@ class MCTSAgent:
                 node['visits'] += 1
                 if winner == game.current_player:
                     node['wins'] += 1
-                elif winner == 0:  # Draw
+                elif winner == 0:  # draw
                     node['wins'] += 0.5
         
         # Select best move
@@ -368,8 +368,7 @@ class MAST_MCTSAgent:
                 
                 # Use MAST values to select moves
                 if random() < self.mast_constant:
-                    move = max(legal_moves, 
-                             key=lambda m: self._get_move_value(m))
+                    move = max(legal_moves, key=lambda m: self._get_move_value(m))
                 else:
                     move = choice(legal_moves)
                 
@@ -401,8 +400,7 @@ class MAST_MCTSAgent:
             
             mcts_value = child['wins'] / child['visits']
             mast_value = self._get_move_value(move)
-            combined_value = ((1 - self.mast_constant) * mcts_value + 
-                            self.mast_constant * mast_value)
+            combined_value = ((1 - self.mast_constant) * mcts_value + self.mast_constant * mast_value)
             
             if combined_value > best_value:
                 best_value = combined_value
@@ -427,11 +425,9 @@ class MAST_MCTSAgent:
                 exploitation = child['wins'] / child['visits']
                 if player != 1:
                     exploitation = 1 - exploitation
-                exploration = (self.exploration_constant * 
-                             sqrt(log(total_visits) / child['visits']))
+                exploration = (self.exploration_constant * sqrt(log(total_visits) / child['visits']))
                 mast_score = self._get_move_value(move)
-                score = ((1 - self.mast_constant) * (exploitation + exploration) + 
-                        self.mast_constant * mast_score)
+                score = ((1 - self.mast_constant) * (exploitation + exploration) + self.mast_constant * mast_score)
 
             if score > best_score:
                 best_score = score
