@@ -15,9 +15,9 @@ def simple_heuristic(game):
                     return (x, y, z)
     
     # If no winning move, choose the first empty space
-    for x in range(4):
-        for y in range(4):
-            for z in range(4):
+    for x in range(game.dimensions()):
+        for y in range(game.dimensions()):
+            for z in range(game.dimensions()):
                 if game.board[x][y][z] == 0:
                     return (x, y, z)
     return None
@@ -48,7 +48,7 @@ def static_evaluator_eval1(board, player):
             opponent_counts[opponent_pieces] += 1
 
     # Calculate scores
-    for n in range(1, 5):
+    for n in range(1, game.dimensions()+1):
         player_score += player_counts[n] * values[n]
         opponent_score += opponent_counts[n] * values[n] * opponent_multiplier
 

@@ -8,7 +8,7 @@ class RandomAgent:
         pass
 
     def select_move(self, game):
-        moves = [(x, y, z) for x in range(4) for y in range(4) for z in range(4) if game.board[x][y][z] == 0]
+        moves = [(x, y, z) for x in range(game.dimensions()) for y in range(game.dimensions()) for z in range(game.dimensions()) if game.board[x][y][z] == 0]
         return random.choice(moves) if moves else None
 
 class SimpleGreedyAgent:
@@ -26,9 +26,9 @@ class AdvancedGreedyAgent:
         best_move = None
         best_score = float('-inf')
 
-        for x in range(4):
-            for y in range(4):
-                for z in range(4):
+        for x in range(game.dimensions()):
+            for y in range(game.dimensions()):
+                for z in range(game.dimensions()):
                     if game.board[x][y][z] == 0:
                         # Make a temporary move
                         game.board[x][y][z] = game.current_player
