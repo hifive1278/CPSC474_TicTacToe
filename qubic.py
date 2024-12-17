@@ -99,8 +99,8 @@ class Qubic:
         return lines
 
     def dimensions(self):
-        # return self.dimension
-        return len(self.board[0])
+        return self.dimension
+        # return len(self.board[0])
     
     def clone(self):
         new_game = Qubic()
