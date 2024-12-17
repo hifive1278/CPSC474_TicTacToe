@@ -101,7 +101,6 @@ class MCTSAgent:
         return best_move
 
     def _get_state_key(self, game):
-        # Convert board state to immutable tuple for hashing
         return (tuple(tuple(tuple(plane) for plane in board) 
                 for board in game.board), game.current_player)
 
@@ -245,7 +244,6 @@ class AMAF_MCTSAgent:
         return best_move
 
     def _get_state_key(self, game):
-        # Convert board state to immutable tuple for hashing
         return (tuple(tuple(tuple(plane) for plane in board) 
                 for board in game.board), game.current_player)
 

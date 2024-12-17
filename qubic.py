@@ -8,7 +8,7 @@ class Qubic:
         # Initialize the qubic board
         self.board = [[[0 for _ in range(4)] for _ in range(4)] for _ in range(4)]
         self.current_player = 1
-        self.dimension = 3
+        self.dimension = 3  # to shorten the time to run our trials... not enough comp. power :(
     
     def dimensions(self):
         return len(self.board[0])
@@ -95,12 +95,11 @@ class Qubic:
         return lines
 
     def is_full(self):
-        # Check if the board is full
         return all(self.board[x][y][z] != 0 
                   for x in range(self.dimension) for y in range(self.dimension) for z in range(self.dimension))
     
     def is_terminal(self):
-        """Check if the game is in a terminal state (won or drawn)"""
+        # Check if the game is in a terminal state (won or drawn)
         return self.get_winner() is not None or not self.get_legal_moves()
     
     def clone(self):
