@@ -1,6 +1,3 @@
-# alphabeta_agent.py
-
-# import random
 import time
 from heuristics import static_evaluator_eval1
 
@@ -36,10 +33,13 @@ class AlphaBetaAgent:
 
 
     def minimax(self, game, depth, is_maximizing, alpha, beta):
-        winner = game.check_winner()
-        if winner != 0:
-            return (float('inf') if winner == 1 else float('-inf'), None)
-        if game.is_full() or depth == 0:
+        winner = game.get_winner()
+        if winner is not None:
+            if winner == 0:
+                return (0, None)
+            else:
+                return (float('inf') if winner == 1 else float('-inf'), None)
+        if depth == 0:
             return (static_evaluator_eval1(game.board, 1), None)
 
         if is_maximizing:

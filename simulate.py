@@ -1,5 +1,3 @@
-# simulate.py
-
 import sys
 from qubic import Qubic
 from baseline_agents import RandomAgent, SimpleGreedyAgent, AdvancedGreedyAgent
@@ -63,34 +61,22 @@ def run_simulations(num_games):
     print(f"Advanced Greedy Agent wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
     print(f"Draws: {draws} ({draws/num_games*100:.2f}%)")
     
-    print("\nMCTS Agent vs Advanced Greedy Agent:")
-    agent1_wins, agent2_wins, draws = simulate_game(mcts_agent, advanced_greedy_agent, num_games)
-    print(f"MCTS wins: {agent1_wins} ({agent1_wins/num_games*100:.2f}%)")
-    print(f"Advanced Greedy Agent wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
-    print(f"Draws: {draws} ({draws/num_games*100:.2f}%)")
-    
-    print("\nMAST Agent vs Advanced Greedy Agent:")
-    agent1_wins, agent2_wins, draws = simulate_game(mast_agent, advanced_greedy_agent, num_games)
-    print(f"MAST wins: {agent1_wins} ({agent1_wins/num_games*100:.2f}%)")
-    print(f"Advanced Greedy Agent wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
-    print(f"Draws: {draws} ({draws/num_games*100:.2f}%)")
-    
-    print("\nAMAF Agent vs Advanced Greedy Agent:")
-    agent1_wins, agent2_wins, draws = simulate_game(amaf_agent, advanced_greedy_agent, num_games)
-    print(f"AMAF wins: {agent1_wins} ({agent1_wins/num_games*100:.2f}%)")
-    print(f"Advanced Greedy Agent wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
-    print(f"Draws: {draws} ({draws/num_games*100:.2f}%)")
-
-    # print("\nAlpha Beta Agent vs Random Agent:")
-    # agent1_wins, agent2_wins, draws = simulate_game(alphabeta_agent, random_agent, num_games)
-    # print(f"Alpha Beta Agent wins: {agent1_wins} ({agent1_wins/num_games*100:.2f}%)")
-    # print(f"Random Agent wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
+    # print("\nMCTS Agent vs Advanced Greedy Agent:")
+    # agent1_wins, agent2_wins, draws = simulate_game(mcts_agent, advanced_greedy_agent, num_games)
+    # print(f"MCTS wins: {agent1_wins} ({agent1_wins/num_games*100:.2f}%)")
+    # print(f"Advanced Greedy Agent wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
     # print(f"Draws: {draws} ({draws/num_games*100:.2f}%)")
-
-    # print("\nAlpha Beta Agent vs Simple Greedy Agent:")
-    # agent1_wins, agent2_wins, draws = simulate_game(alphabeta_agent, simple_greedy_agent, num_games)
-    # print(f"Alpha Beta Agent wins: {agent1_wins} ({agent1_wins/num_games*100:.2f}%)")
-    # print(f"Simple Greedy Agent wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
+    
+    # print("\nMAST Agent vs Advanced Greedy Agent:")
+    # agent1_wins, agent2_wins, draws = simulate_game(mast_agent, advanced_greedy_agent, num_games)
+    # print(f"MAST wins: {agent1_wins} ({agent1_wins/num_games*100:.2f}%)")
+    # print(f"Advanced Greedy Agent wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
+    # print(f"Draws: {draws} ({draws/num_games*100:.2f}%)")
+    
+    # print("\nAMAF Agent vs Advanced Greedy Agent:")
+    # agent1_wins, agent2_wins, draws = simulate_game(amaf_agent, advanced_greedy_agent, num_games)
+    # print(f"AMAF wins: {agent1_wins} ({agent1_wins/num_games*100:.2f}%)")
+    # print(f"Advanced Greedy Agent wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
     # print(f"Draws: {draws} ({draws/num_games*100:.2f}%)")
 
     print("\nAlpha Beta Agent vs Advanced Greedy Agent:")
@@ -99,27 +85,21 @@ def run_simulations(num_games):
     print(f"Advanced Greedy Agent wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
     print(f"Draws: {draws} ({draws/num_games*100:.2f}%)")
 
-    # print("\nAlpha Beta Agent vs Random Agent:")
-    # agent1_wins, agent2_wins, draws = simulate_game(alphabeta_agent, random_agent, num_games)
-    # print(f"Alpha Beta Agent wins: {agent1_wins} ({agent1_wins/num_games*100:.2f}%)")
-    # print(f"Random Agent wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
-    # print(f"Draws: {draws} ({draws/num_games*100:.2f}%)")
-
-    # print("\nAlpha Beta Agent vs Simple Greedy Agent:")
-    # agent1_wins, agent2_wins, draws = simulate_game(alphabeta_agent, simple_greedy_agent, num_games)
-    # print(f"Alpha Beta Agent wins: {agent1_wins} ({agent1_wins/num_games*100:.2f}%)")
-    # print(f"Simple Greedy Agent wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
-    # print(f"Draws: {draws} ({draws/num_games*100:.2f}%)")
-
-    print("\nAlpha Beta Agent vs Advanced Greedy Agent:")
-    agent1_wins, agent2_wins, draws = simulate_game(alphabeta_agent, advanced_greedy_agent, num_games)
+    print("\nAlpha Beta Agent vs MCTS Agent:")
+    agent1_wins, agent2_wins, draws = simulate_game(alphabeta_agent, mcts_agent, num_games)
     print(f"Alpha Beta Agent wins: {agent1_wins} ({agent1_wins/num_games*100:.2f}%)")
-    print(f"Advanced Greedy Agent wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
+    print(f"MCTS Agent wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
+    print(f"Draws: {draws} ({draws/num_games*100:.2f}%)")
+
+    print("\nAlpha Beta Agent vs MAST Agent:")
+    agent1_wins, agent2_wins, draws = simulate_game(alphabeta_agent, mast_agent, num_games)
+    print(f"Alpha Beta Agent wins: {agent1_wins} ({agent1_wins/num_games*100:.2f}%)")
+    print(f"MAST Agent wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
     print(f"Draws: {draws} ({draws/num_games*100:.2f}%)")
 
 if __name__ == "__main__":
     # Default number of games
-    num_games = 10
+    num_games = 3
 
     # Check if a command-line argument is provided
     if len(sys.argv) > 1:

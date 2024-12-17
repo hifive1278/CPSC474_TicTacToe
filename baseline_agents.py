@@ -30,11 +30,8 @@ class AdvancedGreedyAgent:
             for y in range(game.dimensions()):
                 for z in range(game.dimensions()):
                     if game.board[x][y][z] == 0:
-                        # Make a temporary move
                         game.board[x][y][z] = game.current_player
-                        # Evaluate the board state
                         score = static_evaluator_eval1(game.board, game.current_player)
-                        # Undo the move
                         game.board[x][y][z] = 0
 
                         if score > best_score:
