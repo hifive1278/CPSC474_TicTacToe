@@ -79,7 +79,7 @@ def run_simulations(num_games):
 
 if __name__ == "__main__":
     # Default number of games
-    num_games = 1
+    num_games = 10
 
     # Check if a command-line argument is provided
     if len(sys.argv) > 1:

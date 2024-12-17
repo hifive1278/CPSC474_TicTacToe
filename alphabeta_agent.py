@@ -16,29 +16,29 @@ class AlphaBetaAgent:
         deepest_score = float('-inf')
 
         while True:
-            if depth > 3:
+            if time.time() > time_limit + start_time or depth > 3: # Can change this depth max to whatever we want
                 break
 
-            print(game.display_board())
+            # print(game.display_board())
 
-            score, move = self.minimax(game, depth, True)
-            print()
+            score, move = self.minimax(game, depth, True, float('-inf'), float('inf'))
+            # print()
 
-            print(f"Depth {depth}: Best Score: {score}, Best Move: {move}")
+            # print(f"Depth {depth}: Best Score: {score}, Best Move: {move}")
             deepest_score = score
             deepest_move = move
 
-            print(f"Passed depth of {depth}\n")
+            # print(f"Passed depth of {depth}\n")
             depth += 1
 
-        print(f"Selected Move: {deepest_move}\n")
+        # print(f"Selected Move: {deepest_move}\n")
         return deepest_move
 
 
-    def minimax(self, game, depth, is_maximizing):
+    def minimax(self, game, depth, is_maximizing, alpha, beta):
         winner = game.check_winner()
         if winner != 0:
-            return (float('inf') if winner == game.current_player else float('-inf'), None)
+            return (float('inf') if winner == 1 else float('-inf'), None)
         if game.is_full() or depth == 0:
             return (static_evaluator_eval1(game.board, 1), None)
 
@@ -48,12 +48,15 @@ class AlphaBetaAgent:
             for move in self.get_legal_moves(game):
                 game.board[move[0]][move[1]][move[2]] = game.current_player
                 game.switch_player()
-                eval, _ = self.minimax(game, depth - 1, False)
-                game.board[move[0]][move[1]][move[2]] = 0  # Undo move
-                game.switch_player()  # Switch back player
+                eval, _ = self.minimax(game, depth - 1, False, alpha, beta)
+                game.board[move[0]][move[1]][move[2]] = 0
+                game.switch_player()
                 if eval > max_eval:
                     max_eval = eval
                     best_move = move
+                alpha = max(alpha, eval)
+                if beta <= alpha:
+                    break
             return (max_eval, best_move)
         else:
             min_eval = float('inf')
@@ -61,12 +64,15 @@ class AlphaBetaAgent:
             for move in self.get_legal_moves(game):
                 game.board[move[0]][move[1]][move[2]] = game.current_player
                 game.switch_player()
-                eval, _ = self.minimax(game, depth - 1, True)
-                game.board[move[0]][move[1]][move[2]] = 0  # Undo move
-                game.switch_player()  # Switch back player
+                eval, _ = self.minimax(game, depth - 1, True, alpha, beta)
+                game.board[move[0]][move[1]][move[2]] = 0
+                game.switch_player()
                 if eval < min_eval:
                     min_eval = eval
                     best_move = move
+                beta = min(beta, eval)
+                if beta <= alpha:
+                    break
             return (min_eval, best_move)
 
     def get_legal_moves(self, game):

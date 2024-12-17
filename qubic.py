@@ -8,14 +8,13 @@ class Qubic:
 
     def display_board(self):
         print("Curr Player: " + str(self.current_player))
-        # Iterate over each row in the layers
+        
+        # Iterate over each row index (y) across all layers
         for y in range(4):
-            # Prepare a list to hold strings for each layer's row
-            layer_rows = []
-            for z in range(4):
+            row_strings = []
+            for z in range(4):  # For each layer (plane)
                 row = []
-                for x in range(4):
-                    # Get the value at the current position
+                for x in range(4):  # For each cell in the row
                     value = self.board[z][y][x]
                     # Convert the value to a string representation
                     if value == 0:
@@ -24,14 +23,15 @@ class Qubic:
                         row.append('1')
                     elif value == 2:
                         row.append('2')
-                # Join the row into a string and add it to the list
-                layer_rows.append(" ".join(row))
+                # Join the row into a string and add it to the list for this layer
+                row_strings.append(" ".join(row))
             
-            # Print all rows for this y level side by side
-            print("   ".join(layer_rows))
+            # Print corresponding rows from all layers side by side
+            print("   ".join(row_strings))
         
-        # Print a separator line between different y levels for clarity
+        # Print a separator line between different sets of rows for clarity
         print("\n" + "-" * 30 + "\n")
+
 
     def make_move(self, x, y, z):
         # Place a move on the board
@@ -61,11 +61,17 @@ class Qubic:
                 lines.append([(i, j, k) for k in range(4)])  # x-y plane
                 lines.append([(i, k, j) for k in range(4)])  # x-z plane
                 lines.append([(k, i, j) for k in range(4)])  # y-z plane
-        # Add diagonals
+        # Add diagonals within each plane
         for i in range(4):
+            # Diagonals in x-y planes (z fixed)
             lines.append([(i, i, k) for k in range(4)])
+            lines.append([(i, 3-i, k) for k in range(4)])
+            # Diagonals in x-z planes (y fixed)
             lines.append([(i, k, i) for k in range(4)])
+            lines.append([(i, k, 3-i) for k in range(4)])
+            # Diagonals in y-z planes (x fixed)
             lines.append([(k, i, i) for k in range(4)])
+            lines.append([(k, i, 3-i) for k in range(4)])
         # Add space diagonals
         lines.append([(i, i, i) for i in range(4)])
         lines.append([(i, i, 3-i) for i in range(4)])
