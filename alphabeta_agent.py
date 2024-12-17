@@ -3,7 +3,6 @@ alphabeta_agent.py
 the alpha-beta pruning minimax agent
 '''
 
-
 import time
 from heuristics import static_evaluator_eval1
 

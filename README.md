@@ -168,72 +168,127 @@ Comparing MAST to AMAF enhancements (100-375 trials) (remove for later section)
 - MAST vs. Adv. Greedy
 - AMAF vs. Adv. Greedy
 
-### The trials we ran: 
-- 4 depth, 0.25s, 25 games: quick! 5 min
-- 4 depth, 0.50s, 100 games: 22 min
-- 4 depth, 1.00s, 375 games 4 hrs
 *because MCTS/Alpha-Beta takes so long to run, we opted for less trials
 
-### Results 1: quick 20 min testing (0.5s time limit each, 4-depth)
+### The trials we ran: 
+- 4 depth, 0.25s, 25 games: quick! 5 min
+- 4 depth, 0.50s, 100 games: ~30 min
+- 4 depth, 1.00s, 375 games ~2.5 hrs
+
+### Results 1: "quick" 30 min testing (0.5s time limit each, 4-depth)
 ```
-hjc43@rattlesnake:~/cs474/final_proj$ time pypy3 simulate.py 100
+hjc43@peacock:~/cs474/final_proj$ time pypy3 simulate.py 100 0.50
 Running simulations with 100 games each...
 
-Random Agent vs Simple Greedy Agent:
-Random Agent wins: 0 (0.00%)
-Simple Greedy Agent wins: 100 (100.00%)
+Random Agent vs Simple Greedy Agent (10,000 games):
+Random Agent wins: 27 (0.27%)
+Simple Greedy Agent wins: 9973 (99.73%)
 Draws: 0 (0.00%)
 
-Random Agent vs Advanced Greedy Agent:
+Random Agent vs Advanced Greedy Agent (10,000 games):
 Random Agent wins: 0 (0.00%)
-Advanced Greedy Agent wins: 100 (100.00%)
+Advanced Greedy Agent wins: 10000 (100.00%)
 Draws: 0 (0.00%)
 
-Simple Greedy Agent vs Advanced Greedy Agent:
+Simple Greedy Agent vs Advanced Greedy Agent (10,000 games):
 Simple Greedy Agent wins: 0 (0.00%)
-Advanced Greedy Agent wins: 100 (100.00%)
+Advanced Greedy Agent wins: 10000 (100.00%)
 Draws: 0 (0.00%)
 
-Alpha Beta Agent vs Advanced Greedy Agent:
+Alpha Beta Agent vs Advanced Greedy Agent (100 games):
 Alpha Beta Agent wins: 100 (100.00%)
 Advanced Greedy Agent wins: 0 (0.00%)
 Draws: 0 (0.00%)
 
-MCTS Agent vs Advanced Greedy Agent:
+MCTS Agent vs Advanced Greedy Agent (100 games):
 MCTS wins: 98 (98.00%)
 Advanced Greedy Agent wins: 2 (2.00%)
 Draws: 0 (0.00%)
 
-Alpha Beta Agent vs MCTS Agent:
+Alpha Beta Agent vs MCTS Agent (100 games):
 Alpha Beta Agent wins: 100 (100.00%)
 MCTS Agent wins: 0 (0.00%)
 Draws: 0 (0.00%)
 
-Alpha Beta Agent vs MAST Agent:
-Alpha Beta Agent wins: 14 (14.00%)
-MAST Agent wins: 86 (86.00%)
+Alpha Beta Agent vs MAST Agent (100 games):
+Alpha Beta Agent wins: 41 (41.00%)
+MAST Agent wins: 59 (59.00%)
 Draws: 0 (0.00%)
 
-MAST Agent vs Advanced Greedy Agent:
-MAST wins: 99 (99.00%)
-Advanced Greedy Agent wins: 1 (1.00%)
+Alpha Beta Agent vs AMAF Agent (100 games):
+Alpha Beta Agent wins: 100 (100.00%)
+AMAF Agent wins: 0 (0.00%)
 Draws: 0 (0.00%)
 
-AMAF Agent vs Advanced Greedy Agent:
-AMAF wins: 83 (83.00%)
-Advanced Greedy Agent wins: 17 (17.00%)
+MAST Agent vs Advanced Greedy Agent (100 games):
+MAST wins: 100 (100.00%)
+Advanced Greedy Agent wins: 0 (0.00%)
 Draws: 0 (0.00%)
 
-real	22m11.706s
-user	22m4.281s
-sys	0m7.071s
+AMAF Agent vs Advanced Greedy Agent (100 games):
+AMAF wins: 79 (79.00%)
+Advanced Greedy Agent wins: 21 (21.00%)
+Draws: 0 (0.00%)
+
+real	29m38.983s
+user	29m28.835s
+sys	0m9.867s
 ```
 
-### Results 2: More robust testing - 4hrs (1s time, 4-depth, just like in pset4)
+### Results 2: More robust testing - 2.5hrs (1s time, 4-depth - just like in pset4)
+```
+hjc43@rattlesnake:~/cs474/final_proj$ time pypy3 simulate.py 375
+Running simulations with 375 games each...
 
+Random Agent vs Simple Greedy Agent (10,000 games):
+Random Agent wins: 24 (0.24%)
+Simple Greedy Agent wins: 9976 (99.76%)
+Draws: 0 (0.00%)
 
+Random Agent vs Advanced Greedy Agent (10,000 games):
+Random Agent wins: 3 (0.03%)
+Advanced Greedy Agent wins: 9997 (99.97%)
+Draws: 0 (0.00%)
 
+Simple Greedy Agent vs Advanced Greedy Agent (10,000 games):
+Simple Greedy Agent wins: 0 (0.00%)
+Advanced Greedy Agent wins: 10000 (100.00%)
+Draws: 0 (0.00%)
 
+Alpha Beta Agent vs Advanced Greedy Agent (375 games):
+Alpha Beta Agent wins: 375 (100.00%)
+Advanced Greedy Agent wins: 0 (0.00%)
+Draws: 0 (0.00%)
+
+MCTS Agent vs Advanced Greedy Agent (375 games):
+MCTS wins: 375 (100.00%)
+Advanced Greedy Agent wins: 0 (0.00%)
+Draws: 0 (0.00%)
+
+Alpha Beta Agent vs MCTS Agent (375 games):
+Alpha Beta Agent wins: 375 (100.00%)
+MCTS Agent wins: 0 (0.00%)
+Draws: 0 (0.00%)
+
+Alpha Beta Agent vs MAST Agent (375 games):
+Alpha Beta Agent wins: 341 (90.93%)
+MAST Agent wins: 34 (9.07%)
+Draws: 0 (0.00%)
+
+MAST Agent vs Advanced Greedy Agent (375 games):
+MAST wins: 375 (100.00%)
+Advanced Greedy Agent wins: 0 (0.00%)
+Draws: 0 (0.00%)
+
+AMAF Agent vs Advanced Greedy Agent (375 games):
+AMAF wins: 360 (96.00%)
+Advanced Greedy Agent wins: 15 (4.00%)
+Draws: 0 (0.00%)
+
+real	146m30.780s
+user	145m59.827s
+sys	0m26.975s
+```
 
 ### Why is MCTS performing worse than Alpha-Beta here?
 We corroborate the same results as when you run the quick ~3.5 min test. 
@@ -241,43 +296,32 @@ Alpha-Beta has a better pruning step than MCTS and considering how much there is
 
 
 
-## Part 2. EXPLORATION OF MCTS ENHANCEMENTS
+## PART 2. EXPLORATION OF MCTS ENHANCEMENTS
 After finding out Alpha-Beta and MCTS had similar-ish results, we decided to further explore MCTS and how the different enhancements might affect it?
 
 ### when we 50 trials (2s time limit each):
 ```
-hjc43@rattlesnake:~/cs474/final_proj$ pypy3 simulate.py 50
+hjc43@peacock:~/cs474/final_proj$ time pypy3 simulate.py 50 2.0
 Running simulations with 50 games each...
 
-Random Agent vs Simple Greedy Agent:
-Random Agent wins: 2 (4.00%)
-Simple Greedy Agent wins: 48 (96.00%)
-Draws: 0 (0.00%)
-
-Random Agent vs Advanced Greedy Agent:
-Random Agent wins: 1 (2.00%)
-Advanced Greedy Agent wins: 49 (98.00%)
-Draws: 0 (0.00%)
-
-Simple Greedy Agent vs Advanced Greedy Agent:
-Simple Greedy Agent wins: 0 (0.00%)
-Advanced Greedy Agent wins: 50 (100.00%)
-Draws: 0 (0.00%)
-
-MCTS Agent vs Advanced Greedy Agent:
-MCTS wins: 48 (96.00%)
-Advanced Greedy Agent wins: 2 (4.00%)
-Draws: 0 (0.00%)
-
-MAST Agent vs Advanced Greedy Agent:
-MAST wins: 50 (100.00%)
+MCTS Agent vs Advanced Greedy Agent (50 games):
+MCTS wins: 50 (100.00%)
 Advanced Greedy Agent wins: 0 (0.00%)
 Draws: 0 (0.00%)
 
-AMAF Agent vs Advanced Greedy Agent:
-AMAF wins: 44 (88.00%)
-Advanced Greedy Agent wins: 6 (12.00%)
+MAST Agent vs Advanced Greedy Agent (50 games):
+MAST wins: 48 (96.00%)
+Advanced Greedy Agent wins: 2 (4.00%)
 Draws: 0 (0.00%)
+
+AMAF Agent vs Advanced Greedy Agent (50 games):
+AMAF wins: 38 (76.00%)
+Advanced Greedy Agent wins: 12 (24.00%)
+Draws: 0 (0.00%)
+
+real	18m26.317s
+user	18m19.698s
+sys	0m6.387s
 ```
 
 ### and when we ran 100 trials (2s time limit each):

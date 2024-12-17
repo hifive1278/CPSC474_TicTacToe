@@ -3,7 +3,6 @@ heuristics.py
 the code for the heuristics used by the (simple, adv.) greedy and alpha-beta agents
 '''
 
-
 from qubic import Qubic
 
 game = Qubic()
