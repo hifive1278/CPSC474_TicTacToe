@@ -8,12 +8,12 @@ class AlphaBetaAgent:
     def select_move(self, game):
         start_time = time.time()
         depth = 1
-        time_limit = 3.5  # seconds
+        time_limit = 0.5  # seconds
         deepest_move = None
         deepest_score = float('-inf')
 
         while True:
-            if time.time() > time_limit + start_time or depth > 3: # Can change this depth max to whatever we want
+            if depth > 3: # Can change this depth max to whatever we want
                 break
 
             # print(game.display_board())

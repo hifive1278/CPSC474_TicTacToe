@@ -3,11 +3,12 @@ from math import sqrt, log
 from random import choice, random
 
 class MCTSAgent:
-    def __init__(self, exploration_constant=1.414):
+    def __init__(self, time_limit, exploration_constant=1.414):
         self.exploration_constant = exploration_constant
+        self.time_limit = time_limit
         self.tree = {}  # transposition table
 
-    def select_move(self, game, time_limit=3.5):
+    def select_move(self, game):
         start_time = time.perf_counter()
         game_state = self._get_state_key(game)
         
@@ -21,7 +22,7 @@ class MCTSAgent:
 
         root_node = self.tree[game_state]
         
-        while time.perf_counter() - start_time < time_limit:
+        while time.perf_counter() - start_time < self.time_limit:
             node = root_node
             state_key = game_state
             sim_game = game.clone()
@@ -47,7 +48,7 @@ class MCTSAgent:
             
             # Expand if not terminal
             if not sim_game.is_terminal() and node['moves']:
-                move = node['moves'].pop()
+                move = node['moves'].pop()  # pseudo-random but saves time
                 sim_game.make_move(*move)
                 sim_game.switch_player()
                 next_state_key = self._get_state_key(sim_game)
@@ -122,13 +123,15 @@ class MCTSAgent:
         return best_move
 
 
+
 class AMAF_MCTSAgent:
-    def __init__(self, exploration_constant=1.414, amaf_constant=0.5):
+    def __init__(self, time_limit, exploration_constant=1.414, amaf_constant=0.5):
         self.exploration_constant = exploration_constant
         self.amaf_constant = amaf_constant
+        self.time_limit = time_limit
         self.tree = {}  # transposition table
 
-    def select_move(self, game, time_limit=3.5):
+    def select_move(self, game): # 3.5
         start_time = time.perf_counter()
         game_state = self._get_state_key(game)
         
@@ -144,7 +147,7 @@ class AMAF_MCTSAgent:
 
         root_node = self.tree[game_state]
         
-        while time.perf_counter() - start_time < time_limit:
+        while time.perf_counter() - start_time < self.time_limit:
             node = root_node
             state_key = game_state
             sim_game = game.clone()
@@ -270,9 +273,10 @@ class AMAF_MCTSAgent:
 
 
 class MAST_MCTSAgent:
-    def __init__(self, exploration_constant=1.414, mast_constant=0.15):
+    def __init__(self, time_limit, exploration_constant=1.414, mast_constant=0.15):
         self.exploration_constant = exploration_constant
         self.mast_constant = mast_constant
+        self.time_limit = time_limit
         self.tree = {}  # transposition table
         self.move_stats = {}  # MAST statistics
 
@@ -293,7 +297,7 @@ class MAST_MCTSAgent:
             return self.move_stats[move]['reward'] / self.move_stats[move]['count']
         return 0.5
 
-    def select_move(self, game, time_limit=5):
+    def select_move(self, game):
         start_time = time.perf_counter()
         game_state = self._get_state_key(game)
         
@@ -307,7 +311,7 @@ class MAST_MCTSAgent:
 
         root_node = self.tree[game_state]
         
-        while time.perf_counter() - start_time < time_limit:
+        while time.perf_counter() - start_time < self.time_limit:
             moves_in_simulation = []
             node = root_node
             state_key = game_state
