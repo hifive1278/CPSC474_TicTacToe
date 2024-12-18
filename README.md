@@ -341,8 +341,7 @@ This is also what we originally hypothesized in our video presentation, so it's 
 A follow-up question is: if MCTS performs worse than Alpha-Beta, what enhancements to it work best? That leads us to part 2 of our study.
 
 
-
-## PART 2. EXPLORATION OF MCTS ENHANCEMENTS
+## PART 2: EXPLORATION OF MCTS ENHANCEMENTS
 After finding out Alpha-Beta and MCTS had similar-ish results (compared to the greedy agents) but Alpha-Beta out-performed MCTS head-to-head, we decided to further explore MCTS and how the different enhancements might affect it?
 
 Recall from above (part 1) that Alpha-Beta almost always beat the vanilla MCTS (Alpha-Beta won 95.20% of the time). However, with the MAST enhancement, MCTS was only beaten 78.40% of the time by Alpha-Beta. Clearly, the MAST enhancement is beneficial to MCTS in the context of Qubic. But why is that? And how do the other enhancements stand up to that? These questions are the foundation of the following two experiments:
