@@ -72,26 +72,21 @@ class Qubic:
         return None  # game not finished
     
     def generate_lines(self):
-        # Generate all possible winning lines
         lines = []
-        # Add lines for rows, columns, and diagonals in each dimension
         for i in range(self.dimension):
             for j in range(self.dimension):
-                lines.append([(i, j, k) for k in range(self.dimension)])  # x-y plane
-                lines.append([(i, k, j) for k in range(self.dimension)])  # x-z plane
-                lines.append([(k, i, j) for k in range(self.dimension)])  # y-z plane
-        # Add diagonals within each plane
+                lines.append([(i, j, k) for k in range(self.dimension)]) 
+                lines.append([(i, k, j) for k in range(self.dimension)]) 
+                lines.append([(k, i, j) for k in range(self.dimension)]) 
+
         for i in range(self.dimension):
-            # Diagonals in x-y planes (z fixed)
             lines.append([(i, i, k) for k in range(self.dimension)])
             lines.append([(i, (self.dimension-1)-i, k) for k in range(self.dimension)])
-            # Diagonals in x-z planes (y fixed)
             lines.append([(i, k, i) for k in range(self.dimension)])
             lines.append([(i, k, (self.dimension-1)-i) for k in range(self.dimension)])
-            # Diagonals in y-z planes (x fixed)
             lines.append([(k, i, i) for k in range(self.dimension)])
             lines.append([(k, i, (self.dimension-1)-i) for k in range(self.dimension)])
-        # Add space diagonals
+
         lines.append([(i, i, i) for i in range(self.dimension)])
         lines.append([(i, i, (self.dimension-1)-i) for i in range(self.dimension)])
         lines.append([(i, (self.dimension-1)-i, i) for i in range(self.dimension)])
