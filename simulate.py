@@ -114,22 +114,14 @@ def run_simulations(num_games, time_limit):
     print(f"Simple Greedy Agent wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
     print(f"Draws: {draws} ({draws/num_games*100:.2f}%)")
     print(f"First Mover wins: {first_mover_wins} ({first_mover_wins/num_games*100:.2f}%)")
-    
-    # AB against itself
-    # print(f"\nAlpha-Beta Agent vs Alpha-Beta ({num_games} games):")
-    # agent1_wins, agent2_wins, draws, first_mover_wins = simulate_game(alphabeta_agent, alphabeta_agentp2, num_games)
-    # print(f"Alpha-Beta P1 wins: {agent1_wins} ({agent1_wins/num_games*100:.2f}%)")
-    # print(f"Alpha-Beta P2 wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
-    # print(f"Draws: {draws} ({draws/num_games*100:.2f}%)")
-    # print(f"First Mover wins: {first_mover_wins} ({first_mover_wins/num_games*100:.2f}%)")
 
     # Does depth matter?
-    # print(f"\nAlpha Beta Depth-5 Agent vs Alpha Beta Depth-3 Agent ({num_games} games):")
-    # agent1_wins, agent2_wins, draws, first_mover_wins = simulate_game(alphabeta_5_agent, alphabeta_agent, num_games)
-    # print(f"Alpha Beta Depth-5 Agent wins: {agent1_wins} ({agent1_wins/num_games*100:.2f}%)")
-    # print(f"Alpha Beta Depth-3 Agent wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
-    # print(f"Draws: {draws} ({draws/num_games*100:.2f}%)")
-    # print(f"First Mover wins: {first_mover_wins} ({first_mover_wins/num_games*100:.2f}%)")
+    print(f"\nAlpha Beta Depth-5 Agent vs Alpha Beta Depth-3 Agent ({num_games} games):")
+    agent1_wins, agent2_wins, draws, first_mover_wins = simulate_game(alphabeta_5_agent, alphabeta_agent, num_games)
+    print(f"Alpha Beta Depth-5 Agent wins: {agent1_wins} ({agent1_wins/num_games*100:.2f}%)")
+    print(f"Alpha Beta Depth-3 Agent wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
+    print(f"Draws: {draws} ({draws/num_games*100:.2f}%)")
+    print(f"First Mover wins: {first_mover_wins} ({first_mover_wins/num_games*100:.2f}%)")
     
     # # HEAD TO HEADS... 
     
