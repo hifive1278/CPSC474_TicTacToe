@@ -4,6 +4,14 @@ December 17, 2024
 
 ## PROJECT OVERVIEW
 
+### Running our code
+```
+pypy3 simulate.py <# of game trials> <time limit for MCTS>
+```
+(Alpha-Beta is always set to a depth of 3)
+
+example (that runs in ~4 minutes): `pypy3 simulate.py 25 0.25`
+
 ### Overview of the agents we developed:
 
 1. **Random**: randomly picks a valid position (out of the 64 maximum possible) to place piece. 
@@ -19,20 +27,15 @@ December 17, 2024
 
 - Switched to MAST and AMAF MCTS enhancements over UCT-2 because we thought it'd have more relevant impacts for a game like Qubic.
 
-### Running our code
-```
-pypy3 simulate.py <# of game trials> <time limit for MCTS>
-```
-(Alpha-Beta is always set to a depth of 3)
-
-example (that runs in ~4 minutes): `pypy3 simulate.py 25 0.25`
-
 ## RESEARCH QUESTION
 1. How does MCTS compare to Minimax alpha-beta pruning for Qubic?
-2. Follow-up after our preliminary results: Why does MCTS perform worse, and specifically what enhancements are relevant to make it perform better?
+2. Follow-up after our preliminary results: Why does MCTS perform worse compared to Alpha-Beta, and specifically what enhancements are relevant to make it perform better?
+3. 2nd follow-up: How much does depth of search affect Alpha-Beta pruning results?
 
 ## PART 1: HOW DOES MCTS (+ ITS ENHANCEMENTS) STACK UP TO ALPHA-BETA PRUNING?
 *For quick replication/testing: if you run like 20-25 trials with 0.25s time limit for MCTS and depth of 3 for Alpha-Beta it should take like ~3-5 min.*
+
+`pypy3 simulate.py 25 0.25`
 
 ~4 min example:
 ```
@@ -324,7 +327,7 @@ sys	0m37.109s
 One possible explanation is that advanced greedy runs the same heuristic as the Alpha-Beta agent. The only difference is that it does it only to a depth of 1 and does not prune any searches. In other words, it's running minimax to a depth of 1. Perhaps this is also a reflection of how strong the static evaluator heuristic that we used.
 
 ### First-mover advantage
-As observed, the first mover won almost 100% of te time in the trials of {MCTS (+ its enhancements), Alpha-Beta} against the adv. greedy. This aligns with our initial hypothesis that player move order matters, and also aligns with Tic-Tac-Toe theory.
+As observed, the first mover won almost 100% of the time in the trials of {MCTS (+ its enhancements), Alpha-Beta} against the adv. greedy. This aligns with our initial hypothesis that player move order matters, and also aligns with Tic-Tac-Toe theory.
 
 Maybe we can use this knowledge and tune P2's heurisitic to focus more on forcing a draw (i.e. 'blocking' opponent n-in-a-rows) rather than going for a win because we know that it starts at an inherent disadvantage.
 
