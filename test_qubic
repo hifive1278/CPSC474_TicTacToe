@@ -16,6 +16,6 @@ echo "******************"
 # Running!
 time pypy3 simulate.py 25 0.25
 
-echo "\n******************"
+echo -e "\n******************"
 echo "Script completed!"
 echo "******************"
