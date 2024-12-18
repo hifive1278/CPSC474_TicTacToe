@@ -1,20 +1,26 @@
 #!/bin/bash
 
-echo -e "\nCPSC 474 final project: Qubic - Henry Chen and Matthew Neissen\n12/17/2024\n\n"
-echo -e "this script will only run a brief 4 min version of our results."
-echo -e "please see the README.md for the 30 min and 3 hr results.\n"
-echo -e "we have also included a discussion of our results in the README.\n"
-echo -e "here's a quick sneak peek of results, though: first mover advantage is strong, MAST > AMAF because move ordering matters, Alpha-Beta outperforms MCTS because it is more comprehensive (at least with our MCTS time limits), a higher depth for Alpha-Beta leads to better performance in Qubic.\n"
+echo -e "\nCPSC 474 final project: Qubic\n\tHenry Chen and Matthew Neissen\n\t12/17/2024\n\n"
+echo -e "Game: Qubic (3D 4x4 Tic-Tac-Toe), however because of computational restrictions, we simplified it down to 3x3x3 Tic-Tac-Toe. All strategies should still work similarly though.\n"
+echo -e "At first, we sought out to answer: How does MCTS (and its enhancements) compare to Minimax alpha-beta pruning for Qubic?"
+echo -e "But after prelim results we asked the follow-ups:\n\t(1) Why does MCTS perform worse compared to Alpha-Beta, and specifically what enhancements are relevant to make it perform better?"
+echo -e "\t(2) How much does depth of search affect Alpha-Beta pruning results?\n"
+echo -e "this script will only run a brief 4 min (25 trials, 0.25s MCTS time limit) version of our results."
+echo -e "** PLEASE SEE the README.md for the 30 min (100 trials, 0.5s (375 trials, 1.0s) results that further support the 4 min conclusions.\n"
+echo -e "** we have included a thorough discussion of our results in the README.\n"
+echo -e "here's a quick sneak peek of results, though: \n\t- first mover advantage is strong, \n\t- MAST > AMAF because the order in which moves are played matters in Qubic, \n\t- Alpha-Beta outperforms MCTS because it is more comprehensive (at least with our MCTS time limits), \n\t- a higher depth for Alpha-Beta leads to a better performance, \n\t- and adv. greedy does so well because it uses the same heuristic as minimax but just to depth of 1.\n"
+echo -e "** these results ^ are corroborated by the additional tests that can be found in the README.md\n"
 echo -e "we hope you enjoy :) - henry and matt \n\n"
-
 
 # Demonstrate basic commands
 echo "******************"
-echo "Running 4 min demo..."
+echo "Running 4 min demo (25 trials, 0.25s MCTS time limit)..."
 echo "******************"
 
-# Running!
-time pypy3 simulate.py 25 0.25
+# # Running!
+# time pypy3 simulate.py 25 0.25
+{ time pypy3 simulate.py 25 0.25 ; } 2>&1
+
 
 echo -e "\n******************"
 echo "Script completed!"

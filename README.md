@@ -33,7 +33,7 @@ or alternatively, use the test script (which will run the 4 min ex. above): if i
 - Switched to MAST and AMAF MCTS enhancements over UCT-2 because we thought it'd have more relevant impacts for a game like Qubic.
 
 ## RESEARCH QUESTION
-1. How does MCTS compare to Minimax alpha-beta pruning for Qubic?
+1. How does MCTS (and its enhancements) compare to Minimax Alpha-Beta pruning for Qubic?
 2. Follow-up after our preliminary results: Why does MCTS perform worse compared to Alpha-Beta, and specifically what enhancements are relevant to make it perform better?
 3. 2nd follow-up: How much does depth of search affect Alpha-Beta pruning results?
 
