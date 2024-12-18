@@ -57,7 +57,8 @@ def run_simulations(num_games, time_limit):
     mast_agent = MAST_MCTSAgent(time_limit=time_limit)
     mcts_agent = MCTSAgent(time_limit=time_limit)
     alphabeta_agent = AlphaBetaAgent(max_depth=3)
-    alphabeta_4_agent = AlphaBetaAgent(max_depth=4)
+    alphabeta_agentp2 = AlphaBetaAgent(max_depth=3)
+    alphabeta_5_agent = AlphaBetaAgent(max_depth=5)
 
     print(f"Running simulations with {num_games} games each...")
 
@@ -84,12 +85,19 @@ def run_simulations(num_games, time_limit):
     print(f"Draws: {draws} ({draws/10_000*100:.2f}%)")
     print(f"First Mover wins: {first_mover_wins} ({first_mover_wins/10_000*100:.2f}%)")
     
-    # # OUR AGENTS vs. baseline adv. greedy
+    # OUR AGENTS vs. baseline adv. greedy
     
     print(f"\nAlpha Beta Agent vs Advanced Greedy Agent ({num_games} games):")
     agent1_wins, agent2_wins, draws, first_mover_wins = simulate_game(alphabeta_agent, advanced_greedy_agent, num_games)
     print(f"Alpha Beta Agent wins: {agent1_wins} ({agent1_wins/num_games*100:.2f}%)")
     print(f"Advanced Greedy Agent wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
+    print(f"Draws: {draws} ({draws/num_games*100:.2f}%)")
+    print(f"First Mover wins: {first_mover_wins} ({first_mover_wins/num_games*100:.2f}%)")
+    
+    print(f"\nAlpha Beta Agent vs Simple Greedy Agent ({num_games} games):")
+    agent1_wins, agent2_wins, draws, first_mover_wins = simulate_game(alphabeta_agent, simple_greedy_agent, num_games)
+    print(f"Alpha Beta Agent wins: {agent1_wins} ({agent1_wins/num_games*100:.2f}%)")
+    print(f"Simple Greedy Agent wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
     print(f"Draws: {draws} ({draws/num_games*100:.2f}%)")
     print(f"First Mover wins: {first_mover_wins} ({first_mover_wins/num_games*100:.2f}%)")
     
@@ -99,22 +107,29 @@ def run_simulations(num_games, time_limit):
     print(f"Advanced Greedy Agent wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
     print(f"Draws: {draws} ({draws/num_games*100:.2f}%)")
     print(f"First Mover wins: {first_mover_wins} ({first_mover_wins/num_games*100:.2f}%)")
-
-    # AB against itself
-    print(f"\nAlpha-Beta Agent vs Alpha-Beta ({num_games} games):")
-    agent1_wins, agent2_wins, draws, first_mover_wins = simulate_game(alphabeta_agent, alphabeta_agent, num_games)
-    print(f"Alpha-Beta P1 wins: {agent1_wins} ({agent1_wins/num_games*100:.2f}%)")
-    print(f"Alpha-Beta P2 wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
+        
+    print(f"\nMCTS Agent vs Simple Greedy Agent ({num_games} games):")
+    agent1_wins, agent2_wins, draws, first_mover_wins = simulate_game(mcts_agent, simple_greedy_agent, num_games)
+    print(f"MCTS wins: {agent1_wins} ({agent1_wins/num_games*100:.2f}%)")
+    print(f"Simple Greedy Agent wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
     print(f"Draws: {draws} ({draws/num_games*100:.2f}%)")
     print(f"First Mover wins: {first_mover_wins} ({first_mover_wins/num_games*100:.2f}%)")
+    
+    # AB against itself
+    # print(f"\nAlpha-Beta Agent vs Alpha-Beta ({num_games} games):")
+    # agent1_wins, agent2_wins, draws, first_mover_wins = simulate_game(alphabeta_agent, alphabeta_agentp2, num_games)
+    # print(f"Alpha-Beta P1 wins: {agent1_wins} ({agent1_wins/num_games*100:.2f}%)")
+    # print(f"Alpha-Beta P2 wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
+    # print(f"Draws: {draws} ({draws/num_games*100:.2f}%)")
+    # print(f"First Mover wins: {first_mover_wins} ({first_mover_wins/num_games*100:.2f}%)")
 
     # Does depth matter?
-    print(f"\nAlpha Beta Depth-3 Agent vs Alpha Beta Depth-4 Agent ({num_games} games):")
-    agent1_wins, agent2_wins, draws, first_mover_wins = simulate_game(alphabeta_agent, alphabeta_4_agent, num_games)
-    print(f"Alpha Beta Depth-3 Agent wins: {agent1_wins} ({agent1_wins/num_games*100:.2f}%)")
-    print(f"Alpha Beta Depth-4 Agent wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
-    print(f"Draws: {draws} ({draws/num_games*100:.2f}%)")
-    print(f"First Mover wins: {first_mover_wins} ({first_mover_wins/num_games*100:.2f}%)")
+    # print(f"\nAlpha Beta Depth-5 Agent vs Alpha Beta Depth-3 Agent ({num_games} games):")
+    # agent1_wins, agent2_wins, draws, first_mover_wins = simulate_game(alphabeta_5_agent, alphabeta_agent, num_games)
+    # print(f"Alpha Beta Depth-5 Agent wins: {agent1_wins} ({agent1_wins/num_games*100:.2f}%)")
+    # print(f"Alpha Beta Depth-3 Agent wins: {agent2_wins} ({agent2_wins/num_games*100:.2f}%)")
+    # print(f"Draws: {draws} ({draws/num_games*100:.2f}%)")
+    # print(f"First Mover wins: {first_mover_wins} ({first_mover_wins/num_games*100:.2f}%)")
     
     # # HEAD TO HEADS... 
     
@@ -139,7 +154,7 @@ def run_simulations(num_games, time_limit):
     print(f"Draws: {draws} ({draws/num_games*100:.2f}%)")
     print(f"First Mover wins: {first_mover_wins} ({first_mover_wins/num_games*100:.2f}%)")
     
-    # # investigation of why MCTS sucked...
+    # investigation of why MCTS sucked...
     
     print(f"\nMAST Agent vs Advanced Greedy Agent ({num_games} games):")
     agent1_wins, agent2_wins, draws, first_mover_wins = simulate_game(mast_agent, advanced_greedy_agent, num_games)

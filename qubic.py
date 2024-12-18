@@ -6,9 +6,9 @@ contains the game logic for Qubic.
 class Qubic:
     def __init__(self):
         # Initialize the qubic board
-        self.board = [[[0 for _ in range(3)] for _ in range(3)] for _ in range(3)]
-        self.current_player = 1
         self.dimension = 3  # to shorten the time to run our trials... not enough comp. power :(
+        self.board = [[[0 for _ in range(self.dimension)] for _ in range(self.dimension)] for _ in range(self.dimension)]
+        self.current_player = 1
 
     def display_board(self):
         print("Curr Player: " + str(self.current_player))
@@ -100,7 +100,6 @@ class Qubic:
 
     def dimensions(self):
         return self.dimension
-        # return len(self.board[0])
     
     def clone(self):
         new_game = Qubic()
