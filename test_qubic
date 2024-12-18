@@ -1,0 +1,21 @@
+#!/bin/bash
+
+echo -e "\nCPSC 474 final project: Qubic \n\n"
+echo "this script will only run a brief 4 min version of our results."
+echo "please see the README.md for the 30 min and 3 hr results."
+echo "we have also included a discussion of our results in the README."
+echo "here's a quick sneak peek of results, though: first mover advantage is strong, MAST > AMAF because move ordering matters, Alpha-Beta outperforms MCTS because it is more comprehensive (at least with our MCTS time limits), a higher depth for Alpha-Beta leads to better performance in Qubic."
+echo -e "we hope you enjoy :) - henry and matt \n\n"
+
+
+# Demonstrate basic commands
+echo "******************"
+echo "Running 4 min demo..."
+echo "******************"
+
+# Running!
+time pypy3 simulate.py 25 0.25
+
+echo "\n******************"
+echo "Script completed!"
+echo "******************"

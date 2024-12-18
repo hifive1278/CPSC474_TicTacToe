@@ -10,7 +10,12 @@ pypy3 simulate.py <# of game trials> <time limit for MCTS>
 ```
 (Alpha-Beta is always set to a depth of 3)
 
-example (that runs in ~4 minutes): `pypy3 simulate.py 25 0.25`
+example (that runs in ~4 minutes): `pypy3 simulate.py 25 0.25` 
+
+or alternatively, use the test script (which will run the 4 min ex. above): if it's your first time `chmod +x test_qubic.sh`. Regardless of if it's your first time, run 
+```
+./test_qubic.sh
+```
 
 ### Overview of the agents we developed:
 
