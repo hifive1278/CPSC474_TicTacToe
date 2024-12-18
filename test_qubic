@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo -e "\nCPSC 474 final project: Qubic \n\n"
+echo -e "\nCPSC 474 final project: Qubic - Henry Chen and Matthew Neissen \n\n"
 echo "this script will only run a brief 4 min version of our results."
 echo "please see the README.md for the 30 min and 3 hr results."
 echo "we have also included a discussion of our results in the README."
